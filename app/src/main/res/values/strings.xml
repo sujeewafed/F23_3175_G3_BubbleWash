@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">BubbleWash</string>
+    <string name="fName" />
+    <string name="hintFirstName">First Name</string>
+    <string name="lName" />
+    <string name="hintLastName">Last Name</string>
+    <string name="phone" />
+    <string name="hintphone">Mobile Number</string>
+    <string name="email" />
+    <string name="hintEmail">Email</string>
+    <string name="address" />
+    <string name="hintAddress">Street Address</string>
+    <string name="city" />
+    <string name="hintCity">City</string>
+    <string name="zipCode" />
+    <string name="hintZip">Zip Code</string>
+    <string name="password" />
+    <string name="hintPassword">Password</string>
+    <string name="confirmPassword" />
+    <string name="hintConfPassword">Confirm Password</string>
+    <string name="btnRegister">Register</string>
+    <string name="btnAddCard">Add Card</string>
+
 </resources>
