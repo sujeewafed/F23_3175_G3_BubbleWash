@@ -21,4 +21,9 @@
     <string name="btnRegister">Register</string>
     <string name="btnAddCard">Add Card</string>
 
+    <string name="txtLoginPage">Login</string>
+    <string name="txtUserNameHint">Username</string>
+    <string name="txtPasswordHint">Password</string>
+    <string name="txtButtonSignIn">Sign In</string>
+    <string name="txtButtonRegister">Register</string>
 </resources>
