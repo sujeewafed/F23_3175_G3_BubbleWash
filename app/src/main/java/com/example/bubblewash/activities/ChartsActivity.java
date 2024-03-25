@@ -1,14 +1,16 @@
-package com.example.bubblewash;
+package com.example.bubblewash.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class LoginActivity extends AppCompatActivity {
+import com.example.bubblewash.R;
+
+public class ChartsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_charts);
     }
 }
