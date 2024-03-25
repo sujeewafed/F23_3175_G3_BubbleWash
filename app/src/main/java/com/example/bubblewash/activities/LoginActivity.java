@@ -26,13 +26,24 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtUserName.getText().equals("") && txtPassword.getText().equals("")) {
-                    startActivity(new Intent(LoginActivity.this, BookingActivity.class));
+                if (!txtUserName.getText().toString().isEmpty() && !txtPassword.getText().toString().isEmpty()) {
+                    if (validateUser(txtUserName.getText().toString(), txtPassword.getText().toString())) {
+                        startActivity(new Intent(LoginActivity.this, BookingActivity.class));
+                    }
+                    else{
+                        txtUserName.setText("");
+                        txtPassword.setText("");
+                        txtUserName.requestFocus();
+                        showMessage("Incorrect username or password. Try again.");
+                    }
                 }
-                else if (txtUserName.getText().equals("")){
-                    Toast.makeText(LoginActivity.this, "Please enter your user name", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(LoginActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+                else if (txtUserName.getText().toString().isEmpty()){
+                    showMessage("Please enter your user name");
+                }else if (txtPassword.getText().toString().isEmpty()){
+                    showMessage("Please enter your password");
+                }
+                else{
+                    showMessage("Lost");
                 }
             }
         });
@@ -43,5 +54,18 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
+    }
+
+    private boolean validateUser(String userName, String password){
+        if (userName.equals("admin") && password.equals("admin")) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private void showMessage(String message){
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }
