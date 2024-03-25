@@ -1,14 +1,16 @@
-package com.example.bubblewash;
+package com.example.bubblewash.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class BookingActivity extends AppCompatActivity {
+import com.example.bubblewash.R;
+
+public class HistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking);
+        setContentView(R.layout.activity_history);
     }
 }
