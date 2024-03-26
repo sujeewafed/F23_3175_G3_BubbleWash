@@ -29,4 +29,14 @@
     <string name="txtForgotPassword"><a href="#">Forgot Password?</a></string>
     <string name="txtGoogleSignIn">Google Sign In</string>
     <string name="txtBookingTitle">Booking</string>
+    <string name="addcardTitle">Bubble Wash</string>
+    <string name="crdNumber" />
+    <string name="hintCrdNumber">Card Number</string>
+    <string name="expDate" />
+    <string name="hintExpDate">MM/YY</string>
+    <string name="cvv" />
+    <string name="hintCvv">CVV</string>
+    <string name="nameOnCard" />
+    <string name="hintNameOnCard">Name</string>
+    <string name="btnSubmitCard">Add Card</string>
 </resources>
