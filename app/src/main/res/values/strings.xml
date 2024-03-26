@@ -18,8 +18,8 @@
     <string name="hintPassword">Password</string>
     <string name="confirmPassword" />
     <string name="hintConfPassword">Confirm Password</string>
-    <string name="btnRegister">Register</string>
-    <string name="btnAddCard">Add Card</string>
+    <string name="btnRegister">REGISTER</string>
+    <string name="btnAddCard">ADD CARD</string>
 
     <string name="txtLoginPage">Login</string>
     <string name="txtUserNameHint">Username</string>
@@ -35,8 +35,9 @@
     <string name="expDate" />
     <string name="hintExpDate">MM/YY</string>
     <string name="cvv" />
-    <string name="hintCvv">CVV</string>
+    <string name="hintCvv">CVC</string>
     <string name="nameOnCard" />
     <string name="hintNameOnCard">Name</string>
-    <string name="btnSubmitCard">Add Card</string>
+    <string name="btnSubmitCard">ADD CARD</string>
+    <string name="txtSaveCardDesc">Save my card details for faster payments.</string>
 </resources>
