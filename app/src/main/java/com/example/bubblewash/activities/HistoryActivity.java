@@ -1,8 +1,10 @@
-package com.example.bubblewash;
+package com.example.bubblewash.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.bubblewash.R;
 
 public class HistoryActivity extends AppCompatActivity {
 
