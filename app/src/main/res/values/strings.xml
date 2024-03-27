@@ -1,5 +1,26 @@
 <resources>
     <string name="app_name">BubbleWash</string>
+    <string name="fName" />
+    <string name="hintFirstName">First Name</string>
+    <string name="lName" />
+    <string name="hintLastName">Last Name</string>
+    <string name="phone" />
+    <string name="hintphone">Mobile Number</string>
+    <string name="email" />
+    <string name="hintEmail">Email</string>
+    <string name="address" />
+    <string name="hintAddress">Street Address</string>
+    <string name="city" />
+    <string name="hintCity">City</string>
+    <string name="zipCode" />
+    <string name="hintZip">Zip Code</string>
+    <string name="password" />
+    <string name="hintPassword">Password</string>
+    <string name="confirmPassword" />
+    <string name="hintConfPassword">Confirm Password</string>
+    <string name="btnRegister">REGISTER</string>
+    <string name="btnAddCard">ADD CARD</string>
+
     <string name="txtLoginPage">Login</string>
     <string name="txtUserNameHint">Username</string>
     <string name="txtPasswordHint">Password</string>
@@ -8,4 +29,15 @@
     <string name="txtForgotPassword"><a href="#">Forgot Password?</a></string>
     <string name="txtGoogleSignIn">Google Sign In</string>
     <string name="txtBookingTitle">Booking</string>
+    <string name="addcardTitle">Bubble Wash</string>
+    <string name="crdNumber" />
+    <string name="hintCrdNumber">Card Number</string>
+    <string name="expDate" />
+    <string name="hintExpDate">MM/YY</string>
+    <string name="cvv" />
+    <string name="hintCvv">CVC</string>
+    <string name="nameOnCard" />
+    <string name="hintNameOnCard">Name</string>
+    <string name="btnSubmitCard">ADD CARD</string>
+    <string name="txtSaveCardDesc">Save my card details for faster payments.</string>
 </resources>

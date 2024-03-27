@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddCardActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="79dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bubblewash_round_logo"
+        tools:srcCompat="@drawable/bubblewash_round_logo" />
+
+    <EditText
+        android:id="@+id/editTxtCrdNumber"
+        android:layout_width="367dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/hintCrdNumber"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:text="@string/crdNumber" />
+
+    <EditText
+        android:id="@+id/ediTxtExpDate"
+        android:layout_width="158dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="@string/hintExpDate"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtCrdNumber"
+        tools:text="@string/expDate" />
+
+    <EditText
+        android:id="@+id/editTxtCvv"
+        android:layout_width="158dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/hintCvv"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtCrdNumber"
+        tools:text="@string/cvv" />
+
+    <EditText
+        android:id="@+id/editTxtName"
+        android:layout_width="367dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/hintNameOnCard"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ediTxtExpDate"
+        tools:text="@string/nameOnCard" />
+
+    <Button
+        android:id="@+id/btnSubmitCard"
+        android:layout_width="337dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/btnSubmitCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtName"
+        tools:text="@string/btnSubmitCard" />
+
+    <CheckBox
+        android:id="@+id/chkCard"
+        android:layout_width="277dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/txtSaveCardDesc"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtName"
+        tools:text="@string/txtSaveCardDesc" />
+</androidx.constraintlayout.widget.ConstraintLayout>

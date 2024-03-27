@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText txtUserName = findViewById(R.id.editTextUserName);
         EditText txtPassword = findViewById(R.id.editTextPassword);
+
+        //Linking "Register" button with the registration activity intent
+        btnRegister.setMovementMethod(LinkMovementMethod.getInstance());
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
