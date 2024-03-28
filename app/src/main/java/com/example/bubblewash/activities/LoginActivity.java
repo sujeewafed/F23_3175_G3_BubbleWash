@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!txtUserName.getText().toString().isEmpty() && !txtPassword.getText().toString().isEmpty()) {
                     if (validateUser(txtUserName.getText().toString(), txtPassword.getText().toString())) {
-                        startActivity(new Intent(LoginActivity.this, BookingActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                     else{
                         txtUserName.setText("");
