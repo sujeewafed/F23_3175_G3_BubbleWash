@@ -4,17 +4,62 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.bubblewash.R;
+import com.example.bubblewash.adapters.MoreOptionAdapter;
+import com.example.bubblewash.model.MoreOption;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MoreActivity extends AppCompatActivity {
+
+    List<String> optionNames = new ArrayList<>(Arrays.asList("History", "My Account", "Manage Cards", "Charts", "Sign out"));
+    List<Integer> optionIcons = new ArrayList<>(Arrays.asList(R.drawable.baseline_history_24, R.drawable.baseline_manage_accounts_24, R.drawable.baseline_credit_card_24, R.drawable.baseline_insert_chart_outlined_24, R.drawable.baseline_logout_24));
+    List<MoreOption> optionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
+        handleNavigation();
+        loadOptionData();
 
+        ListView listViewMoreOptions = findViewById(R.id.listViewMoreOptions);
+        MoreOptionAdapter moreOptionAdapter = new MoreOptionAdapter(optionList);
+        listViewMoreOptions.setAdapter(moreOptionAdapter);
+
+        listViewMoreOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        Toast.makeText(MoreActivity.this, "Clicked on History", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(MoreActivity.this, "Clicked on My Account", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(MoreActivity.this, "Clicked on Manage Cards", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(MoreActivity.this, "Clicked on Charts", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(MoreActivity.this, "Clicked on Sign out", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+    }
+
+    private void handleNavigation(){
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.bottom_more);
 
@@ -37,5 +82,12 @@ public class MoreActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    private void loadOptionData(){
+        for(int i=0; i<optionNames.size(); i++){
+            MoreOption option = new MoreOption(optionNames.get(i), optionIcons.get(i));
+            optionList.add(option);
+        }
     }
 }
