@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         if (user!=null) {
                             Log.d("DB User found : ", user.getUserName());
-                            startActivity(new Intent(LoginActivity.this, BookingActivity.class));
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                         else{
                             EditText txtUserName = findViewById(R.id.editTextUserName);
