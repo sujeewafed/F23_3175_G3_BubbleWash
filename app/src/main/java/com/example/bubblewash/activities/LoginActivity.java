@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -31,12 +32,11 @@ public class LoginActivity extends AppCompatActivity {
 
     BubbleWashDatabase bubbleWashDatabase;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        readUsersFromCSV();
+        setupInitialData();
         Button btnSignIn = findViewById(R.id.buttonSignIn);
         Button btnRegister = findViewById(R.id.buttonRegister);
 
@@ -88,6 +88,25 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void setupInitialData(){
+
+        boolean isFirstRun = false;
+
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        isFirstRun = settings.getBoolean("FIRST_RUN", false);
+        if (!isFirstRun) {
+            // do the thing for the first time
+            Log.d("BBL", " FIRST RUN");
+            settings = getSharedPreferences("PREFS_NAME", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("FIRST_RUN", true);
+            editor.commit();
+            readUsersFromCSV();
+        } else {
+            // other time your app loads
+            Log.d("BBL", " NOT THE FIRST RUN");
+        }
+    }
     private void validateUser(String userName, String password){
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
