@@ -50,6 +50,7 @@ public class MoreActivity extends AppCompatActivity {
                         break;
                     case 3:
                         Toast.makeText(MoreActivity.this, "Clicked on Charts", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), ChartsActivity.class));
                         break;
                     case 4:
                         Toast.makeText(MoreActivity.this, "Clicked on Sign out", Toast.LENGTH_SHORT).show();
