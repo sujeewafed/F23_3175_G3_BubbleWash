@@ -40,4 +40,19 @@
     <string name="hintNameOnCard">Name</string>
     <string name="btnSubmitCard">ADD CARD</string>
     <string name="txtSaveCardDesc">Save my card details for faster payments.</string>
+    <string name="txtTrackSummaryDate">2024-04-01 2:00 PM</string>
+    <string name="txtTrackSummaryCost">Total Cost : 12.0 $</string>
+    <string name="txtTrackSummaryWasherTime">Washer 10:00 AM</string>
+    <string name="txtTrackSummaryDryerTime">Dryer 12:00 PM</string>
+    <string name="txtChkBoxTrackConfirmOrder">Confirm</string>
+    <string name="txtChkBoxTrackPickmOrder">Pick</string>
+    <string name="txtTrackPickTime">2024-04-02 9:00 AM</string>
+    <string name="txtChkBoxTrackWashOrder">Wash</string>
+    <string name="txtChkBoxTrackDryOrder">Dry</string>
+    <string name="txtChkBoxTrackDeliverOrder">Deliver</string>
+    <string name="txtTrackDeliverTime">2024-04-02 1:00 PM</string>
+    <string name="txtTitleRateOrder">How is your order</string>
+    <string name="txtTxtBoxComment"></string>
+    <string name="txtHintTrackComment">Add your comment here..</string>
+    <string name="txtBtnRateSubmit">Submit</string>
 </resources>

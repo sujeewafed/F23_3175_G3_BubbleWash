@@ -34,9 +34,6 @@
             android:name=".activities.BookingSummaryActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.BookingActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.ManageCardActivity"
             android:exported="false" />
         <activity
