@@ -41,6 +41,7 @@ public class MoreActivity extends AppCompatActivity {
                 switch (position){
                     case 0:
                         Toast.makeText(MoreActivity.this, "Clicked on History", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
                         break;
                     case 1:
                         Toast.makeText(MoreActivity.this, "Clicked on My Account", Toast.LENGTH_SHORT).show();

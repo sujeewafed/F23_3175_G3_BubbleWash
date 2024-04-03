@@ -56,5 +56,6 @@
     <string name="txtHintTrackComment">Add your comment here..</string>
     <string name="txtBtnRateSubmit">Submit</string>
     <string name="txtTitleCharts">Charts</string>
+    <string name="txtTitleHistory">Usage History</string>
     <string name="btnTitleBack">Back</string>
 </resources>
