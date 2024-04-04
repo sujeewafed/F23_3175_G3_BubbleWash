@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Printer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnShowCalendar;
     private TextView txtSelectedDate;
+    private TextView txtViewWelcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +30,22 @@ public class MainActivity extends AppCompatActivity {
 
         btnShowCalendar = findViewById(R.id.buttonShowCalendar);
         txtSelectedDate = findViewById(R.id.textViewSelectedDate);
+        txtViewWelcome = findViewById(R.id.textViewWelcome);
+        displayUserName();
         btnShowCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openCalendarDialog();
             }
         });
+    }
+
+    private  void displayUserName(){
+        String userName = "";
+
+        SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+        userName = settings.getString("USERNAME", "");
+        txtViewWelcome.setText("Hello, " + userName);
     }
 
     private void openCalendarDialog(){

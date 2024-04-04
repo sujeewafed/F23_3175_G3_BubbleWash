@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
     BubbleWashDatabase bubbleWashDatabase;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,13 +99,12 @@ public class LoginActivity extends AppCompatActivity {
     private void setupInitialData(){
 
         boolean isFirstRun = false;
-
-        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
         isFirstRun = settings.getBoolean("FIRST_RUN", false);
         if (!isFirstRun) {
             // do the thing for the first time
             Log.d("BBL", " FIRST RUN");
-            settings = getSharedPreferences("PREFS_NAME", 0);
+            settings = getSharedPreferences("PREFS_BBW", 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
@@ -126,6 +126,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         if (user!=null) {
                             Log.d("DB User found : ", user.getUserName());
+                            SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                            settings = getSharedPreferences("PREFS_BBW", 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("USERNAME", user.getUserName());
+                            editor.commit();
+
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                         else{
