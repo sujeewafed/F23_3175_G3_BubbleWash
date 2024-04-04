@@ -17,6 +17,7 @@ import com.example.bubblewash.R;
 import com.example.bubblewash.databases.BubbleWashDatabase;
 import com.example.bubblewash.model.Booking;
 import com.example.bubblewash.model.User;
+import com.example.bubblewash.utils.BookingStatus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -216,8 +217,10 @@ public class LoginActivity extends AppCompatActivity {
                         eachBookingFields[10],
                         // PickTime - 8
                         Integer.parseInt(eachBookingFields[11]),
+                        // Status - CONFIRM
+                        BookingStatus.valueOf(eachBookingFields[12]),
                         // Remarks - test
-                        eachBookingFields[12]
+                        eachBookingFields[13]
                 );
                 bookings.add(eachBooking);
             }

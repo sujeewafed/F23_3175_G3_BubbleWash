@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.bubblewash.utils.BookingStatus;
+
 @Entity(tableName = "bookings")
 public class Booking {
     @NonNull
@@ -47,13 +49,18 @@ public class Booking {
     @ColumnInfo(name = "pickTime")
     private int pickTime;
 
+    @NonNull
+    @ColumnInfo(name = "status")
+    private BookingStatus status;
+
     @ColumnInfo(name = "remarks")
     private String remarks;
 
     public Booking() {
     }
 
-    public Booking(@NonNull String id, @NonNull String userId, @NonNull String date, boolean wash, boolean dry, float washCost, float dryCost, float totalCost, int washTime, int dryTime, String pickDate, int pickTime, String remarks) {
+    public Booking(@NonNull String id, @NonNull String userId, @NonNull String date, boolean wash, boolean dry, float washCost, float dryCost,
+                   float totalCost, int washTime, int dryTime, String pickDate, int pickTime, BookingStatus status, String remarks) {
         this.id = id;
         this.userId = userId;
         this.date = date;
@@ -66,6 +73,7 @@ public class Booking {
         this.dryTime = dryTime;
         this.pickDate = pickDate;
         this.pickTime = pickTime;
+        this.status = status;
         this.remarks = remarks;
     }
 
@@ -154,6 +162,15 @@ public class Booking {
 
     public String getPickDate() {
         return pickDate;
+    }
+
+    @NonNull
+    public BookingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(@NonNull BookingStatus status) {
+        this.status = status;
     }
 
     public void setPickDate(String pickDate) {
