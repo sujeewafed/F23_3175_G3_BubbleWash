@@ -15,13 +15,16 @@ import android.widget.Toast;
 
 import com.example.bubblewash.R;
 import com.example.bubblewash.databases.BubbleWashDatabase;
+import com.example.bubblewash.model.Booking;
 import com.example.bubblewash.model.User;
+import com.example.bubblewash.utils.BookingStatus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,6 +32,7 @@ import java.util.concurrent.Executors;
 public class LoginActivity extends AppCompatActivity {
 
     List<User> users = new ArrayList<>();
+    List<Booking> bookings = new ArrayList<>();
 
     BubbleWashDatabase bubbleWashDatabase;
 
@@ -50,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 bubbleWashDatabase.userDAO().insertUsersFromList(users);
                 Log.d("DB", users.size() + " users added");
+
+                bubbleWashDatabase.bookingDao().insertBookingsFromList(bookings);
+                Log.d("DB", bookings.size() + " bookings added");
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -102,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
             readUsersFromCSV();
+            readBookingsFromCSV();
         } else {
             // other time your app loads
             Log.d("BBL", " NOT THE FIRST RUN");
@@ -157,6 +165,64 @@ public class LoginActivity extends AppCompatActivity {
                 String[] eachUserFields = inputLine.split(",");
                 User eachUser = new User(eachUserFields[0],eachUserFields[1],eachUserFields[2]);
                 users.add(eachUser);
+            }
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        } finally {
+            try{
+                inputStream.close();
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void readBookingsFromCSV(){
+        bookings = new ArrayList<>();
+        String inputLine;
+        InputStream inputStream = getResources().openRawResource(R.raw.bookings);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        try{
+            if((inputLine = reader.readLine()) !=null){
+                // header lin is contained in inputLine
+            }
+            while ((inputLine = reader.readLine()) != null){
+                String[] eachBookingFields = inputLine.split(",");
+                Log.d("DB", eachBookingFields + " Captured bookings");
+
+                Booking eachBooking = new Booking(
+                        // Id - 00001
+                        eachBookingFields[0],
+                        // UserId - 00001
+                        eachBookingFields[1],
+                        // Date - 2024/01/10
+                        eachBookingFields[2],
+                        // Wash - true
+                        Boolean.parseBoolean(eachBookingFields[3]),
+                        // Dry - true
+                        Boolean.parseBoolean(eachBookingFields[4]),
+                        // WashCost - 8
+                        Float.parseFloat(eachBookingFields[5]),
+                        // DryCost - 0
+                        Float.parseFloat(eachBookingFields[6]),
+                        // TotalCost - 8
+                        Float.parseFloat(eachBookingFields[7]),
+                        // WashTime - 9
+                        Integer.parseInt(eachBookingFields[8]),
+                        // DryTime - 10
+                        Integer.parseInt(eachBookingFields[9]),
+                        // PickDate - 2024/01/10
+                        eachBookingFields[10],
+                        // PickTime - 8
+                        Integer.parseInt(eachBookingFields[11]),
+                        // Status - CONFIRM
+                        BookingStatus.valueOf(eachBookingFields[12]),
+                        // Remarks - test
+                        eachBookingFields[13]
+                );
+                bookings.add(eachBooking);
             }
         }
         catch (IOException ex){
