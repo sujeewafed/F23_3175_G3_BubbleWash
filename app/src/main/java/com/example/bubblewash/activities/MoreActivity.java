@@ -48,6 +48,7 @@ public class MoreActivity extends AppCompatActivity {
                         break;
                     case 2:
                         Toast.makeText(MoreActivity.this, "Clicked on Manage Cards", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), AddCardActivity.class));
                         break;
                     case 3:
                         Toast.makeText(MoreActivity.this, "Clicked on Charts", Toast.LENGTH_SHORT).show();

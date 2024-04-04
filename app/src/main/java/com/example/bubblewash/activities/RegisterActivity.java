@@ -16,13 +16,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Button btnaddcard = findViewById(R.id.btnAddCard);
+       /* Button btnaddcard = findViewById(R.id.btnAddCard);
         btnaddcard.setMovementMethod(LinkMovementMethod.getInstance());
         btnaddcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, AddCardActivity.class));
             }
-        });
+        });*/
     }
 }
