@@ -21,4 +21,6 @@ public interface BookingDao {
     @Query("SELECT * from bookings")
     List<Booking> GetAllBookings();
 
+    @Query("SELECT * from bookings WHERE id=:userId AND status='DELIVER'")
+    List<Booking> GetAllPastBookingsForUser(String userId);
 }

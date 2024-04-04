@@ -14,6 +14,7 @@ import com.example.bubblewash.R;
 import com.example.bubblewash.adapters.MoreOptionAdapter;
 import com.example.bubblewash.adapters.UsageHistoryAdapter;
 import com.example.bubblewash.databases.BubbleWashDatabase;
+import com.example.bubblewash.databinding.ActivityHistoryBinding;
 import com.example.bubblewash.databinding.ActivityMainBinding;
 import com.example.bubblewash.model.Booking;
 import com.example.bubblewash.model.MoreOption;
@@ -32,9 +33,8 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
-//        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
+        ActivityHistoryBinding binding = ActivityHistoryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setBackNavigation();
 
         // UsageHistoryAdapter usageHistoryAdapter;
@@ -55,12 +55,12 @@ public class HistoryActivity extends AppCompatActivity {
                 }
                 Log.d("DB", histories.size() + " histories count");
 
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        listViewPastBookings.setAdapter(new UsageHistoryAdapter(histories));
-//                    }
-//                });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.listViewPastBookings.setAdapter(new UsageHistoryAdapter(histories));
+                    }
+                });
             }
         });
     }

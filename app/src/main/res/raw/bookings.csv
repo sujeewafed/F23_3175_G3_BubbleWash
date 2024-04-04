@@ -1,2 +1,4 @@
 Id,UserId,Date,Wash,Dry,WashCost,DryCost,TotalCost,WashTime,DryTime,PickDate,PickTime,Status,Remarks
-00001,00001,2024/01/10,true,true,8,8,16,9,10,2024/01/10,8,CONFIRM,test
+00001,00001,2024/01/10,true,true,8,8,16,9,10,2024/01/10,8,DELIVER,test
+00002,00002,2024/03/05,true,true,12,10,22,10,11,2024/03/05,9,DELIVER,test2
+00003,00002,2024/03/10,true,true,12,10,22,10,11,2024/03/10,9,DELIVER,test3

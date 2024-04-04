@@ -1,5 +1,7 @@
 package com.example.bubblewash.adapters;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bubblewash.R;
+import com.example.bubblewash.databinding.LayoutHistoryItemBinding;
+import com.example.bubblewash.databinding.LayoutMoreOptionItemBinding;
 import com.example.bubblewash.model.MoreOption;
 import com.example.bubblewash.model.UsageHistory;
 
@@ -16,6 +20,8 @@ import java.util.List;
 
 public class UsageHistoryAdapter extends BaseAdapter {
     List<UsageHistory> adapterHistoryList;
+
+    LayoutHistoryItemBinding itemBinding;
 
     public UsageHistoryAdapter(List<UsageHistory> adapterHistoryList) {
         this.adapterHistoryList = adapterHistoryList;
@@ -39,16 +45,15 @@ public class UsageHistoryAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null){
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_history_item, parent, false);
+            itemBinding = LayoutHistoryItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         }
 
-        TextView txtViewHistoryDate = convertView.findViewById(R.id.txtViewHistoryDate);
-        TextView txtViewHistoryCost = convertView.findViewById(R.id.txtViewHistoryCost);
-        txtViewHistoryDate.setText((CharSequence) adapterHistoryList.get(position).getDate());
-        txtViewHistoryCost.setText((int) adapterHistoryList.get(position).getCost());
-        txtViewHistoryDate.setGravity(Gravity.CENTER_VERTICAL);
-        txtViewHistoryCost.setGravity(Gravity.CENTER_VERTICAL);
+        itemBinding.txtViewHistoryDate.setText(adapterHistoryList.get(position).getDate());
+        itemBinding.txtViewHistoryCost.setText( Float.toString(adapterHistoryList.get(position).getCost()) );
+        itemBinding.txtViewHistoryDate.setGravity(Gravity.CENTER_VERTICAL);
+        itemBinding.txtViewHistoryCost.setGravity(Gravity.CENTER_VERTICAL);
 
-        return convertView;
+        return itemBinding.getRoot();
+
     }
 }

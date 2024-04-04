@@ -58,4 +58,6 @@
     <string name="txtTitleCharts">Charts</string>
     <string name="txtTitleHistory">Usage History</string>
     <string name="btnTitleBack">Back</string>
+    <string name="txtHistoryHeaderDate">Date</string>
+    <string name="txtHistoryHeaderCost">Cost ( $ )</string>
 </resources>
