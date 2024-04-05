@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         isFirstRun = settings.getBoolean("FIRST_RUN", false);
-        if (isFirstRun) {
+        if (!isFirstRun) {
             // do the thing for the first time
             Log.d("BBL", " FIRST RUN");
             settings = getSharedPreferences("PREFS_NAME", 0);
@@ -207,28 +207,30 @@ public class LoginActivity extends AppCompatActivity {
                         eachBookingFields[1],
                         // Date - 2024/01/10
                         eachBookingFields[2],
+                        // Month - Jan
+                        eachBookingFields[3],
                         // Wash - true
-                        Boolean.parseBoolean(eachBookingFields[3]),
-                        // Dry - true
                         Boolean.parseBoolean(eachBookingFields[4]),
+                        // Dry - true
+                        Boolean.parseBoolean(eachBookingFields[5]),
                         // WashCost - 8
-                        Float.parseFloat(eachBookingFields[5]),
-                        // DryCost - 0
                         Float.parseFloat(eachBookingFields[6]),
-                        // TotalCost - 8
+                        // DryCost - 0
                         Float.parseFloat(eachBookingFields[7]),
+                        // TotalCost - 8
+                        Float.parseFloat(eachBookingFields[8]),
                         // WashTime - 9
-                        Integer.parseInt(eachBookingFields[8]),
-                        // DryTime - 10
                         Integer.parseInt(eachBookingFields[9]),
+                        // DryTime - 10
+                        Integer.parseInt(eachBookingFields[10]),
                         // PickDate - 2024/01/10
-                        eachBookingFields[10],
+                        eachBookingFields[11],
                         // PickTime - 8
-                        Integer.parseInt(eachBookingFields[11]),
+                        Integer.parseInt(eachBookingFields[12]),
                         // Status - CONFIRM
-                        BookingStatus.valueOf(eachBookingFields[12]),
+                        BookingStatus.valueOf(eachBookingFields[13]),
                         // Remarks - test
-                        eachBookingFields[13]
+                        eachBookingFields[14]
                 );
                 bookings.add(eachBooking);
             }

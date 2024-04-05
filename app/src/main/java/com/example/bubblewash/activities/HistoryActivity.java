@@ -38,10 +38,8 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setBackNavigation();
 
-        // UsageHistoryAdapter usageHistoryAdapter;
         bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        ListView listViewPastBookings = findViewById(R.id.listViewPastBookings);
 
         executorService.execute(new Runnable() {
             @Override
