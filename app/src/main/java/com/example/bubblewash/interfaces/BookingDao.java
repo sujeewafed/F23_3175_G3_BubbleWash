@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.TimeDuration;
 
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface BookingDao {
 
     @Query("SELECT * from bookings")
     List<Booking> GetAllBookings();
+
+
 
 }

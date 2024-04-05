@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.bubblewash.R;
 import com.example.bubblewash.databases.BubbleWashDatabase;
 import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.TimeDuration;
 import com.example.bubblewash.model.User;
 import com.example.bubblewash.utils.BookingStatus;
 
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     List<User> users = new ArrayList<>();
     List<Booking> bookings = new ArrayList<>();
 
+    List<TimeDuration> timeDurations = new ArrayList<>();
     BubbleWashDatabase bubbleWashDatabase;
 
 
@@ -58,6 +60,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 bubbleWashDatabase.bookingDao().insertBookingsFromList(bookings);
                 Log.d("DB", bookings.size() + " bookings added");
+
+                bubbleWashDatabase.timeDurationDao().insertTimesFromList(timeDurations);
+                Log.d("DB", timeDurations.size() + " time durations added");
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -110,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.commit();
             readUsersFromCSV();
             readBookingsFromCSV();
+            readTimeDurationsFromCSV();
         } else {
             // other time your app loads
             Log.d("BBL", " NOT THE FIRST RUN");
@@ -229,6 +235,34 @@ public class LoginActivity extends AppCompatActivity {
                         eachBookingFields[13]
                 );
                 bookings.add(eachBooking);
+            }
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        } finally {
+            try{
+                inputStream.close();
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void readTimeDurationsFromCSV(){
+        //read users from users.csv
+        timeDurations = new ArrayList<>();
+        String inputLine;
+        InputStream inputStream = getResources().openRawResource(R.raw.times);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        try{
+            if((inputLine = reader.readLine()) !=null){
+                // header lin is contained in inputLine
+            }
+            while ((inputLine = reader.readLine()) != null){
+                String timeField = inputLine;
+                TimeDuration eachTime = new TimeDuration(Integer.parseInt(timeField));
+                timeDurations.add(eachTime);
             }
         }
         catch (IOException ex){

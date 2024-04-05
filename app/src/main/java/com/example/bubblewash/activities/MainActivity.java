@@ -1,6 +1,7 @@
 package com.example.bubblewash.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -15,18 +16,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bubblewash.R;
+import com.example.bubblewash.databases.BubbleWashDatabase;
+import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.TimeDuration;
+import com.example.bubblewash.model.UsageHistory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imgViewShowCalendar;
     private TextView txtSelectedDate;
     private TextView txtViewWelcome;
+
+    BubbleWashDatabase bwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         displayUserName();
         Date c = Calendar.getInstance().getTime();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
         txtSelectedDate.setText(formattedDate);
@@ -49,6 +60,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openCalendarDialog();
+            }
+        });
+        getTimeDurationLists();
+    }
+
+    private void getTimeDurationLists(){
+        bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<TimeDuration> times = bwd.timeDurationDao().getWasherTimeDurationList(txtSelectedDate.getText().toString());
+
+                Log.d("DB", times.size() + " duration count for: " + txtSelectedDate.getText().toString());
+
             }
         });
     }
@@ -65,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                txtSelectedDate.setText(String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(dayOfMonth));
+                txtSelectedDate.setText(String.valueOf(year) + "/" + String.format("%02d", month+1) + "/" + String.format("%02d", dayOfMonth) );
+                getTimeDurationLists();
             }
         }, 2024,4,0);
 
