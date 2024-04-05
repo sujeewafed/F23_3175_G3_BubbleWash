@@ -18,7 +18,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 tools:context=".activities.MoreActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtViewTitleMoreOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -41,7 +41,7 @@ tools:context=".activities.MoreActivity">
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtViewTitleMoreOptions" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

@@ -1,6 +1,5 @@
 package com.example.bubblewash.adapters;
 
-import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.example.bubblewash.R;
 import com.example.bubblewash.model.MoreOption;
@@ -45,12 +42,9 @@ public class MoreOptionAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_more_option_item, parent, false);
         }
 
-        TextView txtViewMoreOptionItem = convertView.findViewById(R.id.txtViewMoreOptionItem);
+        TextView txtViewMoreOptionItem = convertView.findViewById(R.id.txtViewHistoryCost);
         txtViewMoreOptionItem.setText(adapterMoreOptionsList.get(position).getOptionName());
         txtViewMoreOptionItem.setGravity(Gravity.CENTER_VERTICAL);
-        // Drawable img = ContextCompat.getDrawable(parent.getContext(), adapterMoreOptionsList.get(position).getOptionIcon());
-        // img.setBounds(0,0,80,80);
-
         ImageView imageViewMoreOptionItem = convertView.findViewById(R.id.imageViewMoreOptionItem);
         imageViewMoreOptionItem.setImageResource(adapterMoreOptionsList.get(position).getOptionIcon());
 

@@ -55,4 +55,11 @@
     <string name="txtTxtBoxComment"></string>
     <string name="txtHintTrackComment">Add your comment here..</string>
     <string name="txtBtnRateSubmit">Submit</string>
+    <string name="txtTitleCharts">Charts</string>
+    <string name="txtTitleHistory">Usage History</string>
+    <string name="btnTitleBack">Back</string>
+
+    //Main Activity
+    <string name="txtMainTitle">Booking</string>
+    <string name="txtSelectDate">Select Date</string>
 </resources>

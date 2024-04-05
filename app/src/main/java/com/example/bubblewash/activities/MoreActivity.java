@@ -41,6 +41,7 @@ public class MoreActivity extends AppCompatActivity {
                 switch (position){
                     case 0:
                         Toast.makeText(MoreActivity.this, "Clicked on History", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
                         break;
                     case 1:
                         Toast.makeText(MoreActivity.this, "Clicked on My Account", Toast.LENGTH_SHORT).show();
@@ -50,6 +51,7 @@ public class MoreActivity extends AppCompatActivity {
                         break;
                     case 3:
                         Toast.makeText(MoreActivity.this, "Clicked on Charts", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), ChartsActivity.class));
                         break;
                     case 4:
                         Toast.makeText(MoreActivity.this, "Clicked on Sign out", Toast.LENGTH_SHORT).show();
