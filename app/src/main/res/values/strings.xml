@@ -46,11 +46,11 @@
     <string name="txtTrackSummaryDryerTime">Dryer 12:00 PM</string>
     <string name="txtChkBoxTrackConfirmOrder">Confirm</string>
     <string name="txtChkBoxTrackPickmOrder">Pick</string>
-    <string name="txtTrackPickTime">2024-04-02 9:00 AM</string>
+    <string name="txtTrackPickTime"></string>
     <string name="txtChkBoxTrackWashOrder">Wash</string>
     <string name="txtChkBoxTrackDryOrder">Dry</string>
     <string name="txtChkBoxTrackDeliverOrder">Deliver</string>
-    <string name="txtTrackDeliverTime">2024-04-02 1:00 PM</string>
+    <string name="txtTrackDeliverTime"></string>
     <string name="txtTitleRateOrder">How is your order</string>
     <string name="txtTxtBoxComment"></string>
     <string name="txtHintTrackComment">Add your comment here..</string>
