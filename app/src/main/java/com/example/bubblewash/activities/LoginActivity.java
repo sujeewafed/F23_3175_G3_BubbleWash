@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
         isFirstRun = settings.getBoolean("FIRST_RUN", false);
-        if (!isFirstRun) {
+        if (isFirstRun) {
             // do the thing for the first time
             Log.d("BBL", " FIRST RUN");
             settings = getSharedPreferences("PREFS_NAME", 0);
@@ -127,6 +127,14 @@ public class LoginActivity extends AppCompatActivity {
                         if (user!=null) {
                             Log.d("DB User found : ", user.getUserName());
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                            // save current user info
+                            SharedPreferences settings = getSharedPreferences("APP", 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putBoolean("IS_LOGGED", true);
+                            editor.putString("USER_ID", user.getId());
+                            editor.putString("USERNAME", user.getUserName());
+                            editor.commit();
                         }
                         else{
                             EditText txtUserName = findViewById(R.id.editTextUserName);

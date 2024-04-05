@@ -29,39 +29,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtViewHeaderDate"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/listHeaderLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/txtHistoryHeaderDate"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBackFromCharts" />
-
-    <TextView
-        android:id="@+id/txtViewHeaderCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="120dp"
-        android:text="@string/txtHistoryHeaderCost"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBackFromCharts" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBackFromCharts">
+
+        <TextView
+            android:id="@+id/txtViewHeaderDate"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="8dp"
+            android:layout_weight="0.5"
+            android:text="@string/txtHistoryHeaderDate"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtViewHeaderCost"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="8dp"
+            android:layout_weight="0.5"
+            android:text="@string/txtHistoryHeaderCost"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listViewPastBookings"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewHeaderDate" />
+        app:layout_constraintTop_toBottomOf="@id/listHeaderLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,8 +19,8 @@ public interface BookingDao {
     void insertOneBooking(Booking booking);
 
     @Query("SELECT * from bookings")
-    List<Booking> GetAllBookings();
+    List<Booking> getAllBookings();
 
-    @Query("SELECT * from bookings WHERE id=:userId AND status='DELIVER'")
-    List<Booking> GetAllPastBookingsForUser(String userId);
+    @Query("SELECT * from bookings WHERE userId=:userId AND status='DELIVER'")
+    List<Booking> getAllPastBookingsForUser(String userId);
 }
