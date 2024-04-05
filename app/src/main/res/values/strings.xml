@@ -61,5 +61,8 @@
 
     //Main Activity
     <string name="txtMainTitle">Booking</string>
-    <string name="txtSelectDate">Select Date</string>
+    <string name="txtSelectDate">Date</string>
+    <string name="chkWasher">Washer</string>
+    <string name="chkDryer">Dryer</string>
+    <string name="chkSelectTimeSlot">Select a time slot</string>
 </resources>

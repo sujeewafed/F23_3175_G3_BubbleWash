@@ -46,11 +46,11 @@ tools:context=".activities.MainActivity">
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewUser"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageViewUser"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -70,21 +70,51 @@ tools:context=".activities.MainActivity">
 
     <TextView
         android:id="@+id/textViewSelectedDate"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintStart_toEndOf="@+id/buttonShowCalendar"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWelcome" />
-
-    <Button
-        android:id="@+id/buttonShowCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/textViewSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/txtViewMainTitle" />
+
+    <ImageView
+        android:id="@+id/imageViewShowCalendar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewSelectedDate"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewMainTitle"
+        app:srcCompat="@drawable/icons8_calendar_week_32" />
+
+    <CheckBox
+        android:id="@+id/checkBoxWasher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:checked="true"
+        android:text="@string/chkWasher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewShowCalendar" />
+
+    <CheckBox
+        android:id="@+id/checkBoxDryer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/chkDryer"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxWasher"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewShowCalendar" />
+
+    <TextView
+        android:id="@+id/textViewSelectTimeSlot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/chkSelectTimeSlot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxWasher" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

@@ -11,14 +11,20 @@ import android.util.Printer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bubblewash.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnShowCalendar;
+    private ImageView imgViewShowCalendar;
     private TextView txtSelectedDate;
     private TextView txtViewWelcome;
 
@@ -28,11 +34,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         handleNavigation();
 
-        btnShowCalendar = findViewById(R.id.buttonShowCalendar);
+        imgViewShowCalendar = findViewById(R.id.imageViewShowCalendar);
         txtSelectedDate = findViewById(R.id.textViewSelectedDate);
         txtViewWelcome = findViewById(R.id.textViewWelcome);
         displayUserName();
-        btnShowCalendar.setOnClickListener(new View.OnClickListener() {
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+
+        txtSelectedDate.setText(formattedDate);
+
+        imgViewShowCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openCalendarDialog();
@@ -52,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                txtSelectedDate.setText(String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(dayOfMonth));
+                txtSelectedDate.setText(String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(dayOfMonth));
             }
         }, 2024,4,0);
 
