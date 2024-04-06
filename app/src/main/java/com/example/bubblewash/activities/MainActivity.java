@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 Booking booking = new Booking();
                 booking.setUserId(userId);
                 booking.setDate(txtSelectedDate.getText().toString());
+                booking.setMonth("Apr");
                 booking.setWash(chkWasher.isChecked());
                 booking.setDry(chkDryer.isChecked());
                 booking.setWashCost(chkWasher.isChecked()? 3 : 0);

@@ -142,12 +142,12 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                             // save current user info
-                            SharedPreferences settings = getSharedPreferences("APP", 0);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putBoolean("IS_LOGGED", true);
-                            editor.putString("USER_ID", user.getId());
-                            editor.putString("USERNAME", user.getUserName());
-                            editor.commit();
+                            SharedPreferences settings1 = getSharedPreferences("APP", 0);
+                            SharedPreferences.Editor editor1 = settings1.edit();
+                            editor1.putBoolean("IS_LOGGED", true);
+                            editor1.putString("USER_ID", user.getId());
+                            editor1.putString("USERNAME", user.getUserName());
+                            editor1.commit();
                         }
                         else{
                             EditText txtUserName = findViewById(R.id.editTextUserName);
@@ -214,8 +214,6 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("DB", eachBookingFields + " Captured bookings");
 
                 Booking eachBooking = new Booking(
-                        // Id - 00001
-                        //eachBookingFields[0],
                         // UserId - 00001
                         eachBookingFields[1],
                         // Date - 2024/01/10
