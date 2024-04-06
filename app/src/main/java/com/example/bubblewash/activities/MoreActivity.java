@@ -64,10 +64,10 @@ public class MoreActivity extends AppCompatActivity {
     }
 
     private void signout(){
-        SharedPreferences settings = getSharedPreferences("APP", 0);
+        SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("IS_LOGGED", false);
-        editor.putString("USER_ID", "");
+        editor.putString("USERID", "");
         editor.putString("USERNAME", "");
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }

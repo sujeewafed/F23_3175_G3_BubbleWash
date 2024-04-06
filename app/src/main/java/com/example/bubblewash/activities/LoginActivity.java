@@ -132,22 +132,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         if (user!=null) {
                             Log.d("DB User found : ", user.getUserName());
+
+                            // save current user info
                             SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
                             settings = getSharedPreferences("PREFS_BBW", 0);
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("USERNAME", user.getUserName());
                             editor.putString("USERID", user.getId());
+                            editor.putBoolean("IS_LOGGED", true);
                             editor.commit();
 
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
-                            // save current user info
-                            SharedPreferences settings1 = getSharedPreferences("APP", 0);
-                            SharedPreferences.Editor editor1 = settings1.edit();
-                            editor1.putBoolean("IS_LOGGED", true);
-                            editor1.putString("USER_ID", user.getId());
-                            editor1.putString("USERNAME", user.getUserName());
-                            editor1.commit();
                         }
                         else{
                             EditText txtUserName = findViewById(R.id.editTextUserName);

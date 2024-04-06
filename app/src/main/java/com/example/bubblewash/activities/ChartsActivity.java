@@ -52,8 +52,8 @@ public class ChartsActivity extends AppCompatActivity {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences settings = getSharedPreferences("APP", 0);
-                String userId = settings.getString("USER_ID", "");
+                SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                String userId = settings.getString("USERID", "");
 
                 List<MonthCostTuple> monthyData = bwd.bookingDao().getMonthlyUsage(userId);
                 String[] months = new String[monthyData.size()];
