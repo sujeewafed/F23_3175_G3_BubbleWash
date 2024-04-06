@@ -46,6 +46,7 @@ public class MoreActivity extends AppCompatActivity {
                         break;
                     case 1:
                         Toast.makeText(MoreActivity.this, "Clicked on My Account", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
                         break;
                     case 2:
                         Toast.makeText(MoreActivity.this, "Clicked on Manage Cards", Toast.LENGTH_SHORT).show();
@@ -69,6 +70,7 @@ public class MoreActivity extends AppCompatActivity {
         editor.putBoolean("IS_LOGGED", false);
         editor.putString("USERID", "");
         editor.putString("USERNAME", "");
+        editor.putString("PASSWORD", "");
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 

@@ -138,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                             settings = getSharedPreferences("PREFS_BBW", 0);
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("USERNAME", user.getUserName());
+                            editor.putString("PASSWORD", user.getPassword());
                             editor.putString("USERID", user.getId());
                             editor.putBoolean("IS_LOGGED", true);
                             editor.commit();

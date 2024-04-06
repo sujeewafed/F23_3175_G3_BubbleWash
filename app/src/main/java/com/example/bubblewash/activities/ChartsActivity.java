@@ -41,7 +41,6 @@ public class ChartsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_charts);
         ActivityChartsBinding binding = ActivityChartsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setBackNavigation();
