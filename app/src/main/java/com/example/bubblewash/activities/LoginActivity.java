@@ -136,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                             settings = getSharedPreferences("PREFS_BBW", 0);
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("USERNAME", user.getUserName());
+                            editor.putString("USERID", user.getId());
                             editor.commit();
 
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -206,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Booking eachBooking = new Booking(
                         // Id - 00001
-                        eachBookingFields[0],
+                        //eachBookingFields[0],
                         // UserId - 00001
                         eachBookingFields[1],
                         // Date - 2024/01/10

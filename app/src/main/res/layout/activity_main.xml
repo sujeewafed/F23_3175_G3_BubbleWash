@@ -26,6 +26,16 @@ android:layout_height="match_parent"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 tools:context=".activities.MainActivity">
 
+    <Spinner
+        android:id="@+id/spinnerDryerTimes"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHeight_max="60dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewSelectTimeSlot"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerWasherTimes" />
+
     <TextView
         android:id="@+id/txtViewMainTitle"
         android:layout_width="wrap_content"
@@ -111,10 +121,40 @@ tools:context=".activities.MainActivity">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/chkSelectTimeSlot"
+        android:layout_marginTop="24dp"
+        android:text="@string/txtStartWasherTimeSlot"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxWasher" />
+
+    <TextView
+        android:id="@+id/textViewSelectTimeSlotDryer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/txtStartDryerTimeSlot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTimeSlot" />
+
+    <Spinner
+        android:id="@+id/spinnerWasherTimes"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHeight_max="60dp"
+        app:layout_constraintStart_toEndOf="@+id/textViewSelectTimeSlot"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxDryer" />
+
+    <Button
+        android:id="@+id/buttonReserve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/btnReserve"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDryerTimes" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

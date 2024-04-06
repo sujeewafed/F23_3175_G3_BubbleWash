@@ -14,7 +14,6 @@ import com.example.bubblewash.R;
 import com.example.bubblewash.adapters.MoreOptionAdapter;
 import com.example.bubblewash.adapters.UsageHistoryAdapter;
 import com.example.bubblewash.databases.BubbleWashDatabase;
-import com.example.bubblewash.databinding.ActivityMainBinding;
 import com.example.bubblewash.model.Booking;
 import com.example.bubblewash.model.MoreOption;
 import com.example.bubblewash.model.UsageHistory;

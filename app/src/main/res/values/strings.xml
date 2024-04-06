@@ -64,5 +64,11 @@
     <string name="txtSelectDate">Date</string>
     <string name="chkWasher">Washer</string>
     <string name="chkDryer">Dryer</string>
-    <string name="chkSelectTimeSlot">Select a time slot</string>
+    <string name="txtStartWasherTimeSlot">Select a time to start washer</string>
+    <string name="txtStartDryerTimeSlot">Select a time to start dryer</string>
+    <string name="btnReserve">Reserve</string>
+
+    //Booking summary Activity
+    <string name="txtBookingSummaryTitle">Booking Summary</string>
+    <string name="txtBookingSummarySuccess">Congratulations! Your reservation has been successfully confirmed.</string>
 </resources>

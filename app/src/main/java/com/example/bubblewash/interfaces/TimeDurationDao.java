@@ -23,4 +23,8 @@ public interface TimeDurationDao {
             "(SELECT bookings.washTime FROM bookings WHERE Bookings.Date=:bookingDate)")
     List<TimeDuration> getWasherTimeDurationList(String bookingDate);
 
+    @Query("SELECT timeDurations.starttime FROM timeDurations WHERE timeDurations.starttime NOT IN " +
+            "(SELECT bookings.dryTime FROM bookings WHERE Bookings.Date=:bookingDate)")
+    List<TimeDuration> getDryerTimeDurationList(String bookingDate);
+
 }
