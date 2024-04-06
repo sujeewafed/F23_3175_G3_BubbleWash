@@ -60,4 +60,10 @@
     <string name="btnTitleBack">Back</string>
     <string name="txtHistoryHeaderDate">Date</string>
     <string name="txtHistoryHeaderCost">Cost ( $ )</string>
+    <string name="txtCurrentBooking">Current Bookings</string>
+    <string name="txtAdminHeader">Date</string>
+    <string name="txtAdminHeaderMonth">Month</string>
+    <string name="txtAdminHeaderPickDate">Pick Date</string>
+    <string name="txtAdminHeaderPickTime">Pick Time</string>
+    <string name="txtAdminHeaderStatus">Status</string>
 </resources>
