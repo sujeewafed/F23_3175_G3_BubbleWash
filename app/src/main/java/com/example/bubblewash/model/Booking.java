@@ -57,6 +57,9 @@ public class Booking {
     @ColumnInfo(name = "status")
     private BookingStatus status;
 
+    @ColumnInfo(name = "rating")
+    private float rating;
+
     @ColumnInfo(name = "remarks")
     private String remarks;
 
@@ -64,7 +67,7 @@ public class Booking {
     }
 
     public Booking(@NonNull String userId, @NonNull String date, @NonNull String month, boolean wash, boolean dry, float washCost, float dryCost,
-                   float totalCost, int washTime, int dryTime, String pickDate, int pickTime, BookingStatus status, String remarks) {
+                   float totalCost, int washTime, int dryTime, String pickDate, int pickTime, BookingStatus status, float rating, String remarks) {
         //this.id = id;
         this.userId = userId;
         this.month = month;
@@ -79,7 +82,16 @@ public class Booking {
         this.pickDate = pickDate;
         this.pickTime = pickTime;
         this.status = status;
+        this.rating = rating;
         this.remarks = remarks;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     @NonNull

@@ -235,8 +235,10 @@ public class LoginActivity extends AppCompatActivity {
                         Integer.parseInt(eachBookingFields[12]),
                         // Status - CONFIRM
                         BookingStatus.valueOf(eachBookingFields[13]),
+                        // Rating - 0
+                        Float.parseFloat(eachBookingFields[14]),
                         // Remarks - test
-                        eachBookingFields[14]
+                        eachBookingFields[15]
                 );
                 bookings.add(eachBooking);
             }
