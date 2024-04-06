@@ -63,7 +63,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(@NonNull String userId, @NonNull String date, boolean wash, boolean dry, float washCost, float dryCost,
+    public Booking(@NonNull String userId, @NonNull String date, @NonNull String month, boolean wash, boolean dry, float washCost, float dryCost,
                    float totalCost, int washTime, int dryTime, String pickDate, int pickTime, BookingStatus status, String remarks) {
         //this.id = id;
         this.userId = userId;
