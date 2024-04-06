@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.example.bubblewash.R;
 import com.example.bubblewash.adapters.MoreOptionAdapter;
 import com.example.bubblewash.adapters.UsageHistoryAdapter;
 import com.example.bubblewash.databases.BubbleWashDatabase;
+import com.example.bubblewash.databinding.ActivityHistoryBinding;
+import com.example.bubblewash.databinding.ActivityMainBinding;
 import com.example.bubblewash.model.Booking;
 import com.example.bubblewash.model.MoreOption;
 import com.example.bubblewash.model.UsageHistory;
@@ -31,35 +34,32 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
-//        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
+        ActivityHistoryBinding binding = ActivityHistoryBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setBackNavigation();
 
-        // UsageHistoryAdapter usageHistoryAdapter;
         bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        ListView listViewPastBookings = findViewById(R.id.listViewPastBookings);
 
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                List<Booking> bookings = bwd.bookingDao().GetAllBookings();
-                Log.d("DB", bookings.size() + " bookings count");
+                SharedPreferences settings = getSharedPreferences("APP", 0);
+                String userId = settings.getString("USER_ID", "");
 
+                List<Booking> bookings = bwd.bookingDao().getAllPastBookingsForUser(userId);
                 List<UsageHistory> histories = new ArrayList<>();
                 for(int i=0; i<bookings.size(); i++){
                     UsageHistory historyItem = new UsageHistory(bookings.get(i).getDate(), bookings.get(i).getTotalCost());
                     histories.add(historyItem);
                 }
-                Log.d("DB", histories.size() + " histories count");
 
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        listViewPastBookings.setAdapter(new UsageHistoryAdapter(histories));
-//                    }
-//                });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.listViewPastBookings.setAdapter(new UsageHistoryAdapter(histories));
+                    }
+                });
             }
         });
     }
