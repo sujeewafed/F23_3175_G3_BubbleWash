@@ -4,8 +4,10 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.MonthCostTuple;
 
 import java.util.List;
 
@@ -19,8 +21,14 @@ public interface BookingDao {
     void insertOneBooking(Booking booking);
 
     @Query("SELECT * from bookings")
-    List<Booking> GetAllBookings();
+    List<Booking> getAllBookings();
 
-    @Query("SELECT * from bookings WHERE id=:userId AND status='DELIVER'")
-    List<Booking> GetAllPastBookingsForUser(String userId);
+    @Query("SELECT * from bookings WHERE userId=:userId AND status='DELIVER'")
+    List<Booking> getAllPastBookingsForUser(String userId);
+
+    @Query("SELECT bookingMonth, SUM(totalCost) AS cost from bookings WHERE userId=:userId GROUP BY bookingMonth")
+    List<MonthCostTuple> getMonthlyUsage(String userId);
+
+    @Query("SELECT * from bookings WHERE userId=:userId AND status IN ('CONFIRM', 'PICK', 'WASH', 'DRY')")
+    List<Booking> getCurrentUserBooking(String userId);
 }

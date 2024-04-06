@@ -1,14 +1,23 @@
 package com.example.bubblewash.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.bubblewash.R;
+import com.example.bubblewash.databases.BubbleWashDatabase;
+import com.example.bubblewash.databinding.ActivityChartsBinding;
+import com.example.bubblewash.databinding.ActivityHistoryBinding;
+import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.MonthCostTuple;
+import com.example.bubblewash.model.UsageHistory;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,66 +29,67 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ChartsActivity extends AppCompatActivity {
 
     ArrayList barArraylist;
+    BubbleWashDatabase bwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_charts);
+        // setContentView(R.layout.activity_charts);
+        ActivityChartsBinding binding = ActivityChartsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setBackNavigation();
 
-        BarChart barChart = findViewById(R.id.barChartUsage);
-        getData();
-        BarDataSet barDataSet = new BarDataSet(barArraylist,"Monthly Usage History");
-        BarData barData = new BarData(barDataSet);
-        barChart.setData(barData);
-        barChart.setFitBars(true); // make the x-axis fit exactly all bars
-        barChart.invalidate(); // refresh
+        bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-
-        final String[] months = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-        ValueFormatter formatter = new ValueFormatter() {
+        executorService.execute(new Runnable() {
             @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return months[(int) value];
+            public void run() {
+                SharedPreferences settings = getSharedPreferences("APP", 0);
+                String userId = settings.getString("USER_ID", "");
+
+                List<MonthCostTuple> monthyData = bwd.bookingDao().getMonthlyUsage(userId);
+                String[] months = new String[monthyData.size()];
+                barArraylist = new ArrayList();
+
+                for(int i=0; i<monthyData.size(); i++){
+                    months[i] = monthyData.get(i).getBookingMonth();
+                    barArraylist.add(new BarEntry(i, monthyData.get(i).getCost()));
+                }
+
+                BarChart barChart = findViewById(R.id.barChartUsage);
+                BarDataSet barDataSet = new BarDataSet(barArraylist,"Monthly Usage History");
+                BarData barData = new BarData(barDataSet);
+                barChart.setData(barData);
+                barChart.setFitBars(true);
+                barChart.invalidate();
+
+                XAxis xAxis = barChart.getXAxis();
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setDrawGridLines(false);
+
+                ValueFormatter formatter = new ValueFormatter() {
+                    @Override
+                    public String getAxisLabel(float value, AxisBase axis) {
+                        return months[(int) value];
+                    }
+                };
+
+                xAxis.setGranularity(1f);
+                xAxis.setValueFormatter(formatter);
+                barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                barDataSet.setValueTextColor(Color.BLACK);
+                barDataSet.setValueTextSize(14f);
+                barChart.getDescription().setEnabled(true);
             }
-        };
-
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(formatter);
-
-        //color bar data set
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        //text color
-        barDataSet.setValueTextColor(Color.BLACK);
-
-        //settting text size
-        barDataSet.setValueTextSize(14f);
-        barChart.getDescription().setEnabled(true);
-    }
-
-    private void getData()
-    {
-        barArraylist = new ArrayList();
-        barArraylist.add(new BarEntry(0f, 10.6F));
-        barArraylist.add(new BarEntry(1f,20.3F));
-        barArraylist.add(new BarEntry(2f,30.42F));
-        barArraylist.add(new BarEntry(3f,40.10F));
-        barArraylist.add(new BarEntry(4f,50.32F));
-        barArraylist.add(new BarEntry(5f,20.12F));
-        barArraylist.add(new BarEntry(6f,40.48F));
-        barArraylist.add(new BarEntry(7f,30.46F));
-        barArraylist.add(new BarEntry(8f,10.12F));
-        barArraylist.add(new BarEntry(9f,45.78F));
-        barArraylist.add(new BarEntry(10f,60.12F));
-        barArraylist.add(new BarEntry(11f,30.36F));
+        });
     }
 
     private void setBackNavigation(){

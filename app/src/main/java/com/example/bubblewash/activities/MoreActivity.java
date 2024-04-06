@@ -3,6 +3,7 @@ package com.example.bubblewash.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,10 +57,20 @@ public class MoreActivity extends AppCompatActivity {
                         break;
                     case 4:
                         Toast.makeText(MoreActivity.this, "Clicked on Sign out", Toast.LENGTH_SHORT).show();
+                        signout();
                         break;
                 }
             }
         });
+    }
+
+    private void signout(){
+        SharedPreferences settings = getSharedPreferences("APP", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("IS_LOGGED", false);
+        editor.putString("USER_ID", "");
+        editor.putString("USERNAME", "");
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     private void handleNavigation(){

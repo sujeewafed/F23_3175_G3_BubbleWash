@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,23 +38,21 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setBackNavigation();
 
-        // UsageHistoryAdapter usageHistoryAdapter;
         bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        ListView listViewPastBookings = findViewById(R.id.listViewPastBookings);
 
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                List<Booking> bookings = bwd.bookingDao().GetAllBookings();
-                Log.d("DB", bookings.size() + " bookings count");
+                SharedPreferences settings = getSharedPreferences("APP", 0);
+                String userId = settings.getString("USER_ID", "");
 
+                List<Booking> bookings = bwd.bookingDao().getAllPastBookingsForUser(userId);
                 List<UsageHistory> histories = new ArrayList<>();
                 for(int i=0; i<bookings.size(); i++){
                     UsageHistory historyItem = new UsageHistory(bookings.get(i).getDate(), bookings.get(i).getTotalCost());
                     histories.add(historyItem);
                 }
-                Log.d("DB", histories.size() + " histories count");
 
                 runOnUiThread(new Runnable() {
                     @Override

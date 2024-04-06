@@ -22,6 +22,10 @@ public class Booking {
     @ColumnInfo(name = "date")
     private String date;
 
+    @NonNull
+    @ColumnInfo(name = "bookingMonth")
+    private String month;
+
     @ColumnInfo(name = "wash")
     private boolean wash;
 
@@ -59,10 +63,11 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(@NonNull String id, @NonNull String userId, @NonNull String date, boolean wash, boolean dry, float washCost, float dryCost,
+    public Booking(@NonNull String id, @NonNull String userId, @NonNull String date, @NonNull String month, boolean wash, boolean dry, float washCost, float dryCost,
                    float totalCost, int washTime, int dryTime, String pickDate, int pickTime, BookingStatus status, String remarks) {
         this.id = id;
         this.userId = userId;
+        this.month = month;
         this.date = date;
         this.wash = wash;
         this.dry = dry;
@@ -89,6 +94,15 @@ public class Booking {
     @NonNull
     public String getUserId() {
         return userId;
+    }
+
+    @NonNull
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(@NonNull String month) {
+        this.month = month;
     }
 
     public void setUserId(@NonNull String userId) {

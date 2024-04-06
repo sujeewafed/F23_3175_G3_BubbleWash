@@ -23,12 +23,24 @@ tools:context=".activities.TrackActivity">
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="15dp"
-        android:text="Summary"
+        android:text="Track Current Booking"
         android:textColor="@color/cobalt_blue"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtViewNoBookingMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="No current bookings found !"
+        android:textColor="#851919"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewSummaryTitle" />
 
     <TextView
         android:id="@+id/txtViewSummaryDate"
