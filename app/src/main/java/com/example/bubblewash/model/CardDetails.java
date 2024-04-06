@@ -1,5 +1,6 @@
 package com.example.bubblewash.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -19,7 +20,19 @@ public class CardDetails {
     @ColumnInfo(name = "cardholdername")
     private String cardHolderName;
 
+    @NonNull
+    @ColumnInfo(name = "userId")
+    private String userId;
+
     public CardDetails() {
+    }
+
+    public CardDetails(@NotNull String cardNumber, String expDate, String cvc, String cardHolderName, @NonNull String userId) {
+        this.cardNumber = cardNumber;
+        this.expDate = expDate;
+        this.cvc = cvc;
+        this.cardHolderName = cardHolderName;
+        this.userId = userId;
     }
 
     public CardDetails(@NotNull String cardNumber, String expDate, String cvc, String cardHolderName) {
@@ -27,6 +40,15 @@ public class CardDetails {
         this.expDate = expDate;
         this.cvc = cvc;
         this.cardHolderName = cardHolderName;
+    }
+
+    @NonNull
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(@NonNull String userId) {
+        this.userId = userId;
     }
 
     @NotNull
