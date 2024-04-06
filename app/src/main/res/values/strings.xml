@@ -58,6 +58,21 @@
     <string name="txtTitleCharts">Charts</string>
     <string name="txtTitleHistory">Usage History</string>
     <string name="btnTitleBack">Back</string>
+
+    //Main Activity
+    <string name="txtMainTitle">Booking</string>
+    <string name="txtSelectDate">Date</string>
+    <string name="chkWasher">Washer</string>
+    <string name="chkDryer">Dryer</string>
+    <string name="txtStartWasherTimeSlot">Select a time to start washer</string>
+    <string name="txtStartDryerTimeSlot">Select a time to start dryer</string>
+    <string name="btnReserve">Reserve</string>
+
+    //Booking summary Activity
+    <string name="txtBookingSummaryTitle">Booking Summary</string>
+    <string name="txtBookingSummarySuccess">Congratulations! Your reservation has been successfully confirmed.</string>
+
     <string name="txtHistoryHeaderDate">Date</string>
     <string name="txtHistoryHeaderCost">Cost ( $ )</string>
+
 </resources>

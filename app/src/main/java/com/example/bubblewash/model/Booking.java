@@ -10,9 +10,9 @@ import com.example.bubblewash.utils.BookingStatus;
 @Entity(tableName = "bookings")
 public class Booking {
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true )
     @ColumnInfo(name = "id")
-    private String id;
+    private int id;
 
     @NonNull
     @ColumnInfo(name = "userId")
@@ -63,9 +63,9 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(@NonNull String id, @NonNull String userId, @NonNull String date, @NonNull String month, boolean wash, boolean dry, float washCost, float dryCost,
+    public Booking(@NonNull String userId, @NonNull String date, boolean wash, boolean dry, float washCost, float dryCost,
                    float totalCost, int washTime, int dryTime, String pickDate, int pickTime, BookingStatus status, String remarks) {
-        this.id = id;
+        //this.id = id;
         this.userId = userId;
         this.month = month;
         this.date = date;
@@ -83,11 +83,11 @@ public class Booking {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

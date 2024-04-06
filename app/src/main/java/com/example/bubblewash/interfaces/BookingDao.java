@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.TimeDuration;
 import com.example.bubblewash.model.MonthCostTuple;
 
 import java.util.List;

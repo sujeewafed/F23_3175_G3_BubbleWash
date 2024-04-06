@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.bubblewash.R;
 import com.example.bubblewash.databases.BubbleWashDatabase;
 import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.TimeDuration;
 import com.example.bubblewash.model.User;
 import com.example.bubblewash.utils.BookingStatus;
 
@@ -34,7 +35,9 @@ public class LoginActivity extends AppCompatActivity {
     List<User> users = new ArrayList<>();
     List<Booking> bookings = new ArrayList<>();
 
+    List<TimeDuration> timeDurations = new ArrayList<>();
     BubbleWashDatabase bubbleWashDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 bubbleWashDatabase.bookingDao().insertBookingsFromList(bookings);
                 Log.d("DB", bookings.size() + " bookings added");
+
+                bubbleWashDatabase.timeDurationDao().insertTimesFromList(timeDurations);
+                Log.d("DB", timeDurations.size() + " time durations added");
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -98,18 +104,18 @@ public class LoginActivity extends AppCompatActivity {
     private void setupInitialData(){
 
         boolean isFirstRun = false;
-
-        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
         isFirstRun = settings.getBoolean("FIRST_RUN", false);
         if (!isFirstRun) {
             // do the thing for the first time
             Log.d("BBL", " FIRST RUN");
-            settings = getSharedPreferences("PREFS_NAME", 0);
+            settings = getSharedPreferences("PREFS_BBW", 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
             readUsersFromCSV();
             readBookingsFromCSV();
+            readTimeDurationsFromCSV();
         } else {
             // other time your app loads
             Log.d("BBL", " NOT THE FIRST RUN");
@@ -126,6 +132,13 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         if (user!=null) {
                             Log.d("DB User found : ", user.getUserName());
+                            SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                            settings = getSharedPreferences("PREFS_BBW", 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("USERNAME", user.getUserName());
+                            editor.putString("USERID", user.getId());
+                            editor.commit();
+
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                             // save current user info
@@ -202,7 +215,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Booking eachBooking = new Booking(
                         // Id - 00001
-                        eachBookingFields[0],
+                        //eachBookingFields[0],
                         // UserId - 00001
                         eachBookingFields[1],
                         // Date - 2024/01/10
@@ -233,6 +246,34 @@ public class LoginActivity extends AppCompatActivity {
                         eachBookingFields[14]
                 );
                 bookings.add(eachBooking);
+            }
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        } finally {
+            try{
+                inputStream.close();
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void readTimeDurationsFromCSV(){
+        //read users from users.csv
+        timeDurations = new ArrayList<>();
+        String inputLine;
+        InputStream inputStream = getResources().openRawResource(R.raw.times);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        try{
+            if((inputLine = reader.readLine()) !=null){
+                // header lin is contained in inputLine
+            }
+            while ((inputLine = reader.readLine()) != null){
+                String timeField = inputLine;
+                TimeDuration eachTime = new TimeDuration(Integer.parseInt(timeField));
+                timeDurations.add(eachTime);
             }
         }
         catch (IOException ex){
