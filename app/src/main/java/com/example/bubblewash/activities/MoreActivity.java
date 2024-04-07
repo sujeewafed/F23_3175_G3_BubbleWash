@@ -46,6 +46,7 @@ public class MoreActivity extends AppCompatActivity {
                         break;
                     case 1:
                         Toast.makeText(MoreActivity.this, "Clicked on My Account", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
                         break;
                     case 2:
                         Toast.makeText(MoreActivity.this, "Clicked on Manage Cards", Toast.LENGTH_SHORT).show();
@@ -64,11 +65,12 @@ public class MoreActivity extends AppCompatActivity {
     }
 
     private void signout(){
-        SharedPreferences settings = getSharedPreferences("APP", 0);
+        SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("IS_LOGGED", false);
-        editor.putString("USER_ID", "");
+        editor.putString("USERID", "");
         editor.putString("USERNAME", "");
+        editor.putString("PASSWORD", "");
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
