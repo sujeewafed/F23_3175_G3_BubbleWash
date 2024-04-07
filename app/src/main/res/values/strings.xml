@@ -40,6 +40,8 @@
     <string name="hintNameOnCard">Name</string>
     <string name="btnSubmitCard">ADD CARD</string>
     <string name="txtSaveCardDesc">Save my card details for faster payments.</string>
+
+    //Track Activity
     <string name="txtTrackSummaryDate">2024-04-01 2:00 PM</string>
     <string name="txtTrackSummaryCost">Total Cost : 12.0 $</string>
     <string name="txtTrackSummaryWasherTime">Washer 10:00 AM</string>
@@ -58,6 +60,21 @@
     <string name="txtTitleCharts">Charts</string>
     <string name="txtTitleHistory">Usage History</string>
     <string name="btnTitleBack">Back</string>
+
+    //Main Activity
+    <string name="txtMainTitle">Booking</string>
+    <string name="txtSelectDate">Date</string>
+    <string name="chkWasher">Washer</string>
+    <string name="chkDryer">Dryer</string>
+    <string name="txtStartWasherTimeSlot">Select a time to start washer</string>
+    <string name="txtStartDryerTimeSlot">Select a time to start dryer</string>
+    <string name="btnReserve">Reserve</string>
+
+    //Booking summary Activity
+    <string name="txtBookingSummaryTitle">Booking Summary</string>
+    <string name="txtBookingSummarySuccess">Congratulations! Your reservation has been successfully confirmed.</string>
+
+    //My Account Activity
     <string name="txtHistoryHeaderDate">Date</string>
     <string name="txtHistoryHeaderCost">Cost ( $ )</string>
     <string name="txtCurrentBooking">Current Bookings</string>
@@ -66,4 +83,8 @@
     <string name="txtAdminHeaderPickDate">Pick Date</string>
     <string name="txtAdminHeaderPickTime">Pick Time</string>
     <string name="txtAdminHeaderStatus">Status</string>
+    <string name="txtTitleMyAccount">My Account</string>
+    <string name="txtLblMyAccountUsername">Username</string>
+    <string name="btnTitleMyAccountUpdate">Update</string>
+
 </resources>

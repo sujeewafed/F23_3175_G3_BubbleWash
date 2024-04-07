@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.bubblewash.R;
@@ -30,6 +31,7 @@ public class TrackActivity extends AppCompatActivity {
     BubbleWashDatabase bwd;
     boolean isCurrentBooking = true;
     Booking currentBooking;
+    float selectedRating = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,23 +46,33 @@ public class TrackActivity extends AppCompatActivity {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences settings = getSharedPreferences("APP", 0);
-                String userId = settings.getString("USER_ID", "");
+                SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                String userId = settings.getString("USERID", "");
 
                 List<Booking> bookings = bwd.bookingDao().getCurrentUserBooking(userId);
 
                 Log.d("BUBBLE_WASH", "Current Bookings : " + bookings.size());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(bookings.size() == 0){
+                            isCurrentBooking = false;
+                        }
+                        else{
+                            isCurrentBooking = true;
+                            currentBooking = bookings.get(0);
+                            setData();
+                        }
+                        handleVisibility();
+                    }
+                });
+            }
+        });
 
-                if(bookings.size() == 0){
-                    isCurrentBooking = false;
-                }
-                else{
-                    isCurrentBooking = true;
-                    currentBooking = bookings.get(0);
-                    setData();
-                    Log.d("BUBBLE_WASH", "Current Booking Date : " + currentBooking.getDate());
-                }
-                handleVisibility();
+        binding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                selectedRating = rating;
             }
         });
 
@@ -69,13 +81,19 @@ public class TrackActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isCurrentBooking){
                     currentBooking.setRemarks(binding.editTextComment.getText().toString());
+                    currentBooking.setRating(selectedRating);
                     ExecutorService executorService = Executors.newSingleThreadExecutor();
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
                             bwd.bookingDao().insertOneBooking(currentBooking);
-                            showMessage("Successfully added the rating !");
-                            // binding.editTextComment.setText("");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showMessage("Successfully added the rating !");
+                                    binding.editTextComment.setText("");
+                                }
+                            });
                         }
                     });
                 }
@@ -85,7 +103,7 @@ public class TrackActivity extends AppCompatActivity {
     }
 
     private void showMessage(String message){
-        // Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     private void setData(){

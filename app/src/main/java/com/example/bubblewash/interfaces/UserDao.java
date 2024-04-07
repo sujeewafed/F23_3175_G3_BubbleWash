@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.bubblewash.model.User;
 
@@ -18,7 +19,12 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOneUser(User user);
 
-    @Query("SELECT * FROM users WHERE username= :userName AND passoword= :password")
+    @Query("UPDATE users SET password = :newPassword WHERE id = :userId")
+    void updatePassword(String userId, String newPassword);
+
+    @Query("SELECT * FROM users WHERE username= :userName AND password= :password")
     User getUser(String userName, String password);
 
+    @Query("SELECT * FROM users WHERE id=:userId")
+    User getUserById(String userId);
 }

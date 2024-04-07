@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.TimeDuration;
 import com.example.bubblewash.model.MonthCostTuple;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface BookingDao {
     Long[] insertBookingsFromList(List<Booking> bookingList);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOneBooking(Booking booking);
+    long insertOneBooking(Booking booking);
 
     @Query("SELECT * from bookings")
     List<Booking> getAllBookings();

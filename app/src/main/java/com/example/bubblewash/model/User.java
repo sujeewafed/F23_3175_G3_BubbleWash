@@ -11,19 +11,44 @@ public class User {
     @PrimaryKey
     @ColumnInfo(name = "id")
     private String id;
+
+    @NonNull
     @ColumnInfo(name = "username")
     private String userName;
 
-    @ColumnInfo(name = "passoword")
-    private String passoword;
+    @NonNull
+    @ColumnInfo(name = "password")
+    private String password;
+
+    @ColumnInfo(name = "firstName")
+    private String firstName;
+
+    @ColumnInfo(name = "lastName")
+    private String lastName;
+
+    @ColumnInfo(name = "mobileNumber")
+    private String mobileNumber;
+
+    @ColumnInfo(name = "address")
+    private String address;
 
     public User() {
     }
 
-    public User(@NonNull String id, String userName, String passoword) {
+    public User(@NonNull String id, @NonNull String userName, @NonNull String password, String firstName, String lastName, String mobileNumber, String address) {
         this.id = id;
         this.userName = userName;
-        this.passoword = passoword;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobileNumber = mobileNumber;
+        this.address = address;
+    }
+
+    public User(@NonNull String id, @NonNull String userName, @NonNull String password){
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
     }
 
     @NonNull
@@ -35,19 +60,53 @@ public class User {
         this.id = id;
     }
 
+    @NonNull
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(@NonNull String userName) {
         this.userName = userName;
     }
 
-    public String getPassoword() {
-        return passoword;
+    @NonNull
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassoword(String passowrd) {
-        this.passoword = passowrd;
+    public void setPassword(@NonNull String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
