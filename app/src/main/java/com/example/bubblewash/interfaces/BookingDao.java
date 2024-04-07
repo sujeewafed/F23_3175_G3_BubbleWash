@@ -19,7 +19,7 @@ public interface BookingDao {
     Long[] insertBookingsFromList(List<Booking> bookingList);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOneBooking(Booking booking);
+    long insertOneBooking(Booking booking);
 
     @Query("SELECT * from bookings")
     List<Booking> getAllBookings();

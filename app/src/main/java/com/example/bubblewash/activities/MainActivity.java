@@ -1,11 +1,13 @@
 package com.example.bubblewash.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Printer;
@@ -31,6 +33,8 @@ import com.example.bubblewash.utils.BookingStatus;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private String userId;
     BubbleWashDatabase bwd;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createBooking(){
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -117,12 +123,15 @@ public class MainActivity extends AppCompatActivity {
                 Booking booking = new Booking();
                 booking.setUserId(userId);
                 booking.setDate(txtSelectedDate.getText().toString());
-                booking.setMonth("Apr");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd"); //"MM" is month number "mm" is minutes "YYYY" year based on week number
+                LocalDate bookingMonth = LocalDate.parse(txtSelectedDate.getText().toString(), formatter);
+                booking.setMonth(bookingMonth.getMonth().toString().substring(0,3));
                 booking.setWash(chkWasher.isChecked());
                 booking.setDry(chkDryer.isChecked());
                 booking.setWashCost(chkWasher.isChecked()? 3 : 0);
                 booking.setDryCost(chkDryer.isChecked()? 2 : 0);
-                booking.setTotalCost(booking.getWashCost() * booking.getDryCost());
+                float totalCost = (chkWasher.isChecked()? 3 : 1) * (chkDryer.isChecked()? 2 : 1);
+                booking.setTotalCost(totalCost == 1 ? 0 : totalCost);
                 booking.setWashTime(Integer.parseInt(spinnerWasher.getSelectedItem().toString().substring(0,2)));
                 booking.setDryTime(Integer.parseInt(spinnerDryer.getSelectedItem().toString().substring(0,2)));
                 //booking.pickDate = pickDate;
@@ -130,13 +139,22 @@ public class MainActivity extends AppCompatActivity {
                 booking.setStatus(BookingStatus.CONFIRM);
                 booking.setRemarks("");
                 try{
-                    bwd.bookingDao().insertOneBooking(booking);
+                    long bookingId = bwd.bookingDao().insertOneBooking(booking);
                     getTimeDurationLists();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //showMessage("Congratulations! Your reservation has been successfully confirmed.");
-                            startActivity(new Intent(MainActivity.this, BookingSummaryActivity.class));
+                            //Create a bundle
+                            Bundle bundle = new Bundle();
+                            //put data in the bundle
+                            bundle.putLong("BOOKINGID", bookingId);
+                            //bundle.putString("TYPE", spinnerConcertTypes.getSelectedItem().toString());
+                            //bundle.putDouble("COST", totalCost);
+                            //create an intent and put the bundle
+                            Intent intent = new Intent(MainActivity.this, BookingSummaryActivity.class);
+                            intent.putExtras(bundle);
+                            //start activity with ths intent
+                            startActivity(intent);
                         }
                     });
                 }
