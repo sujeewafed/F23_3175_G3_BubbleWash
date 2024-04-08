@@ -48,4 +48,5 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 }

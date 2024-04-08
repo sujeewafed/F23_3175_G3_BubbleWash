@@ -81,4 +81,6 @@
     <string name="txtLblMyAccountUsername">Username</string>
     <string name="btnTitleMyAccountUpdate">Update</string>
 
+    //About Us
+    <string name="txtAboutUsTitle">About Us</string>
 </resources>

@@ -21,8 +21,8 @@ import java.util.List;
 
 public class MoreActivity extends AppCompatActivity {
 
-    List<String> optionNames = new ArrayList<>(Arrays.asList("History", "My Account", "Manage Cards", "Charts", "Sign out"));
-    List<Integer> optionIcons = new ArrayList<>(Arrays.asList(R.drawable.baseline_history_24, R.drawable.baseline_manage_accounts_24, R.drawable.baseline_credit_card_24, R.drawable.baseline_insert_chart_outlined_24, R.drawable.baseline_logout_24));
+    List<String> optionNames = new ArrayList<>(Arrays.asList("History", "My Account", "Manage Cards", "Charts", "About Us", "Sign out"));
+    List<Integer> optionIcons = new ArrayList<>(Arrays.asList(R.drawable.baseline_history_24, R.drawable.baseline_manage_accounts_24, R.drawable.baseline_credit_card_24, R.drawable.baseline_insert_chart_outlined_24, R.drawable.baseline_logout_24, R.drawable.baseline_logout_24));
     List<MoreOption> optionList = new ArrayList<>();
 
     @Override
@@ -56,15 +56,29 @@ public class MoreActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), ChartsActivity.class));
                         break;
                     case 4:
+                        startActivity(new Intent(getApplicationContext(), AboutUsActivity.class));
+                        break;
+                        case 5:
                         Toast.makeText(MoreActivity.this, "Clicked on Sign out", Toast.LENGTH_SHORT).show();
                         signout();
                         break;
+
                 }
             }
         });
     }
 
     private void signout(){
+        SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("IS_LOGGED", false);
+        editor.putString("USERID", "");
+        editor.putString("USERNAME", "");
+        editor.putString("PASSWORD", "");
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    }
+
+    private void aboutUs(){
         SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("IS_LOGGED", false);
