@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -18,9 +20,11 @@ import com.example.bubblewash.databases.BubbleWashDatabase;
 import com.example.bubblewash.databinding.ActivityHistoryBinding;
 import com.example.bubblewash.databinding.ActivityTrackBinding;
 import com.example.bubblewash.model.Booking;
+import com.example.bubblewash.model.UsageHistory;
 import com.example.bubblewash.utils.BookingStatus;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,6 +34,8 @@ public class TrackActivity extends AppCompatActivity {
     ActivityTrackBinding binding;
     BubbleWashDatabase bwd;
     boolean isCurrentBooking = true;
+    List<Booking> bookings;
+    List<String> currentDataList;
     Booking currentBooking;
     float selectedRating = 0;
 
@@ -49,9 +55,19 @@ public class TrackActivity extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
                 String userId = settings.getString("USERID", "");
 
-                List<Booking> bookings = bwd.bookingDao().getCurrentUserBookings(userId);
-
+                bookings = bwd.bookingDao().getCurrentUserBookings(userId);
                 Log.d("BUBBLE_WASH", "Current Bookings : " + bookings.size());
+
+
+                List<String> currentDataList = new ArrayList<>();
+                for(int i=0; i<bookings.size(); i++){
+                    String txtValue = bookings.get(i).getDate().toString() + " - $" + Float.toString(bookings.get(i).getTotalCost());
+                    currentDataList.add(txtValue);
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, currentDataList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -62,10 +78,24 @@ public class TrackActivity extends AppCompatActivity {
                             isCurrentBooking = true;
                             currentBooking = bookings.get(0);
                             setData();
+                            binding.spinnerCurrentBookings.setAdapter(adapter);
                         }
                         handleVisibility();
                     }
                 });
+            }
+        });
+
+        binding.spinnerCurrentBookings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentBooking = bookings.get(position);
+                setData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -111,6 +141,8 @@ public class TrackActivity extends AppCompatActivity {
         binding.txtViewSummaryCost.setText("Cost : $" + Float.toString(currentBooking.getTotalCost()));
         binding.txtViewSummaryWasherTime.setText("Wash Time : " + Integer.toString(currentBooking.getWashTime()) + ":00");
         binding.txtViewSummaryDryerTime.setText("Dry Time : " + Integer.toString(currentBooking.getDryTime()) + ":00");
+        binding.editTextComment.setText(currentBooking.getRemarks());
+        binding.ratingBar.setRating(currentBooking.getRating());
         setProgressData();
     }
 
@@ -177,6 +209,8 @@ public class TrackActivity extends AppCompatActivity {
     private void handleVisibility(){
         if(isCurrentBooking){
             binding.txtViewNoBookingMsg.setVisibility(View.GONE);
+            binding.txtViewTitleSelectCurrentBooking.setVisibility(View.VISIBLE);
+            binding.spinnerCurrentBookings.setVisibility(View.VISIBLE);
             binding.txtViewSummaryDate.setVisibility(View.VISIBLE);
             binding.txtViewSummaryCost.setVisibility(View.VISIBLE);
             binding.txtViewSummaryWasherTime.setVisibility(View.VISIBLE);
@@ -198,6 +232,8 @@ public class TrackActivity extends AppCompatActivity {
         }
         else {
             binding.txtViewNoBookingMsg.setVisibility(View.VISIBLE);
+            binding.txtViewTitleSelectCurrentBooking.setVisibility(View.GONE);
+            binding.spinnerCurrentBookings.setVisibility(View.GONE);
             binding.txtViewSummaryDate.setVisibility(View.GONE);
             binding.txtViewSummaryCost.setVisibility(View.GONE);
             binding.txtViewSummaryWasherTime.setVisibility(View.GONE);
