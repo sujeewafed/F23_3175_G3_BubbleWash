@@ -24,12 +24,12 @@ public interface BookingDao {
     @Query("SELECT * from bookings")
     List<Booking> getAllBookings();
 
-    @Query("SELECT * from bookings WHERE userId=:userId AND status='DELIVER'")
+    @Query("SELECT * from bookings WHERE userId=:userId AND status='COMPLETE'")
     List<Booking> getAllPastBookingsForUser(String userId);
 
     @Query("SELECT bookingMonth, SUM(totalCost) AS cost from bookings WHERE userId=:userId GROUP BY bookingMonth")
     List<MonthCostTuple> getMonthlyUsage(String userId);
 
-    @Query("SELECT * from bookings WHERE userId=:userId AND status IN ('CONFIRM', 'PICK', 'WASH', 'DRY')")
-    List<Booking> getCurrentUserBooking(String userId);
+    @Query("SELECT * from bookings WHERE userId=:userId AND status IN ('CONFIRM', 'PICK', 'WASH', 'DRY', 'DELIVER')")
+    List<Booking> getCurrentUserBookings(String userId);
 }

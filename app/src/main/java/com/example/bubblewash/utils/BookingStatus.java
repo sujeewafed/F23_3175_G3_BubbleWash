@@ -5,5 +5,6 @@ public enum BookingStatus {
     PICK,
     WASH,
     DRY,
-    DELIVER
+    DELIVER,
+    COMPLETE
 }

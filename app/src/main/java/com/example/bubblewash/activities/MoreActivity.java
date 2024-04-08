@@ -22,7 +22,7 @@ import java.util.List;
 public class MoreActivity extends AppCompatActivity {
 
     List<String> optionNames = new ArrayList<>(Arrays.asList("History", "My Account", "Manage Cards", "Charts", "About Us", "Sign out"));
-    List<Integer> optionIcons = new ArrayList<>(Arrays.asList(R.drawable.baseline_history_24, R.drawable.baseline_manage_accounts_24, R.drawable.baseline_credit_card_24, R.drawable.baseline_insert_chart_outlined_24, R.drawable.baseline_logout_24, R.drawable.baseline_logout_24));
+    List<Integer> optionIcons = new ArrayList<>(Arrays.asList(R.drawable.baseline_history_24, R.drawable.baseline_manage_accounts_24, R.drawable.baseline_credit_card_24, R.drawable.baseline_insert_chart_outlined_24, R.drawable.baseline_supervised_user_circle_24, R.drawable.baseline_logout_24));
     List<MoreOption> optionList = new ArrayList<>();
 
     @Override
@@ -41,25 +41,21 @@ public class MoreActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
-                        Toast.makeText(MoreActivity.this, "Clicked on History", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
                         break;
                     case 1:
-                        Toast.makeText(MoreActivity.this, "Clicked on My Account", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), MyAccountActivity.class));
                         break;
                     case 2:
                         Toast.makeText(MoreActivity.this, "Clicked on Manage Cards", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(MoreActivity.this, "Clicked on Charts", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), ChartsActivity.class));
                         break;
                     case 4:
                         startActivity(new Intent(getApplicationContext(), AboutUsActivity.class));
                         break;
-                        case 5:
-                        Toast.makeText(MoreActivity.this, "Clicked on Sign out", Toast.LENGTH_SHORT).show();
+                    case 5:
                         signout();
                         break;
 
