@@ -80,7 +80,7 @@ tools:context=".activities.MainActivity">
 
     <TextView
         android:id="@+id/textViewSelectedDate"
-        android:layout_width="70dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
