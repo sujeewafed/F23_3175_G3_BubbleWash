@@ -1,13 +1,21 @@
 package com.example.bubblewash.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.room.Room;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -113,6 +121,9 @@ public class TrackActivity extends AppCompatActivity {
                     currentBooking.setRemarks(binding.editTextComment.getText().toString());
                     currentBooking.setRating(selectedRating);
                     ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+                    // triggerSms();
+
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
@@ -130,6 +141,28 @@ public class TrackActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void triggerSms(){
+        if(ContextCompat.checkSelfPermission(TrackActivity.this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED){
+            sendSms();
+        }
+        else {
+            ActivityCompat.requestPermissions(TrackActivity.this, new String[]{Manifest.permission.SEND_SMS}, 100);
+        }
+    }
+
+    private void sendSms(){
+        SmsManager SmsManager = android.telephony.SmsManager.getDefault();
+        SmsManager.sendTextMessage("7788825994", null, "Test Msg", null, null);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            sendSms();
+        }
     }
 
     private void showMessage(String message){
