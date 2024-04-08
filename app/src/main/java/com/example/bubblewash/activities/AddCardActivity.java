@@ -37,8 +37,8 @@ public class AddCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences userSession = getSharedPreferences("APP", 0);
-                String userId = userSession.getString("USER_ID", "");
+                SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                String userId = settings.getString("USERID", "");
 
                 CardDetails card = new CardDetails(txtCardNumber.getText().toString(), txtExpDate.getText().toString()
                                                     , txtCvv.getText().toString(), txtCardHolderName.getText().toString(), userId);

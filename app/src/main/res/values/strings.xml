@@ -6,14 +6,10 @@
     <string name="hintLastName">Last Name</string>
     <string name="phone" />
     <string name="hintphone">Mobile Number</string>
-    <string name="email" />
-    <string name="hintEmail">Email</string>
+    <string name="username" />
+    <string name="hintusername">User Name</string>
     <string name="address" />
     <string name="hintAddress">Street Address</string>
-    <string name="city" />
-    <string name="hintCity">City</string>
-    <string name="zipCode" />
-    <string name="hintZip">Zip Code</string>
     <string name="password" />
     <string name="hintPassword">Password</string>
     <string name="confirmPassword" />
@@ -86,5 +82,6 @@
     <string name="txtTitleMyAccount">My Account</string>
     <string name="txtLblMyAccountUsername">Username</string>
     <string name="btnTitleMyAccountUpdate">Update</string>
+    <string name="btnManageBookingSignout">SIGNOUT</string>
 
 </resources>

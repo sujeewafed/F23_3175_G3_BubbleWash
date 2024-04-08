@@ -131,19 +131,34 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (user!=null) {
-                            Log.d("DB User found : ", user.getUserName());
+                            if(user.isAdmin()){
 
-                            // save current user info
-                            SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
-                            settings = getSharedPreferences("PREFS_BBW", 0);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString("USERNAME", user.getUserName());
-                            editor.putString("PASSWORD", user.getPassword());
-                            editor.putString("USERID", user.getId());
-                            editor.putBoolean("IS_LOGGED", true);
-                            editor.commit();
+                                SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                                settings = getSharedPreferences("PREFS_BBW", 0);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("USERNAME", user.getUserName());
+                                editor.putString("PASSWORD", user.getPassword());
+                                editor.putString("USERID", user.getId());
+                                editor.putBoolean("IS_LOGGED", true);
+                                editor.commit();
 
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                startActivity(new Intent(LoginActivity.this, ManageBookingActivity.class));
+                            }else {
+                                Log.d("DB User found : ", user.getUserName());
+
+                                // save current user info
+                                SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                                settings = getSharedPreferences("PREFS_BBW", 0);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("USERNAME", user.getUserName());
+                                editor.putString("PASSWORD", user.getPassword());
+                                editor.putString("USERID", user.getId());
+                                editor.putBoolean("IS_LOGGED", true);
+                                editor.commit();
+
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            }
+
                         }
                         else{
                             EditText txtUserName = findViewById(R.id.editTextUserName);
@@ -180,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             while ((inputLine = reader.readLine()) != null){
                 String[] eachUserFields = inputLine.split(",");
-                User eachUser = new User(eachUserFields[0],eachUserFields[1],eachUserFields[2]);
+                User eachUser = new User(eachUserFields[0],eachUserFields[1],eachUserFields[2], Boolean.parseBoolean(eachUserFields[3]));
                 users.add(eachUser);
             }
         }

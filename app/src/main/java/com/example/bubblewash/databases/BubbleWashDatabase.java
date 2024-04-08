@@ -12,8 +12,7 @@ import com.example.bubblewash.model.CardDetails;
 import com.example.bubblewash.model.TimeDuration;
 import com.example.bubblewash.model.User;
 
-@Database(entities = {User.class, Booking.class, CardDetails.class}, version = 1, exportSchema = false)
-@Database(entities = {User.class, Booking.class, TimeDuration.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Booking.class, TimeDuration.class, CardDetails.class}, version = 1, exportSchema = false)
 public abstract class BubbleWashDatabase extends RoomDatabase {
     public abstract UserDao userDAO();
 

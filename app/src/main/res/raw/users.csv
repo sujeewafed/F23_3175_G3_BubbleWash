@@ -1,6 +1,6 @@
-Id,UserName,Password
-00001,sujeewafe,admin123
-00002,indika,indika
-00003,sandaruba,admin123
-00004,priya,admin123
-00005,admin,admin123
+Id,UserName,Password,IsAdmin
+00001,sujeewafe,admin123,false
+00002,indika,indika,false
+00003,sandaruba,admin123,false
+00004,priya,admin123,false
+00005,admin,admin123,true
