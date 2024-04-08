@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 txtSelectedDate.setText(String.valueOf(year) + "/" + String.format("%02d", month+1) + "/" + String.format("%02d", dayOfMonth) );
                 getTimeDurationLists();
             }
-        }, 2024,4,0);
+        }, 2024,4,9);
 
         datePickerDialog.show();
     }

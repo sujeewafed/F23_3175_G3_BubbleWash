@@ -49,7 +49,7 @@ public class TrackActivity extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
                 String userId = settings.getString("USERID", "");
 
-                List<Booking> bookings = bwd.bookingDao().getCurrentUserBooking(userId);
+                List<Booking> bookings = bwd.bookingDao().getCurrentUserBookings(userId);
 
                 Log.d("BUBBLE_WASH", "Current Bookings : " + bookings.size());
                 runOnUiThread(new Runnable() {

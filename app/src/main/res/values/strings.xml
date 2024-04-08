@@ -84,4 +84,6 @@
     <string name="btnTitleMyAccountUpdate">Update</string>
     <string name="btnManageBookingSignout">SIGNOUT</string>
 
+    //About Us
+    <string name="txtAboutUsTitle">About Us</string>
 </resources>

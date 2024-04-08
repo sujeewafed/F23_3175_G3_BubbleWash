@@ -1,9 +1,12 @@
 package com.example.bubblewash.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -19,6 +22,14 @@ import com.example.bubblewash.model.Booking;
 import com.example.bubblewash.model.TimeDuration;
 import com.example.bubblewash.model.User;
 import com.example.bubblewash.utils.BookingStatus;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.BeginSignInResult;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,12 +49,33 @@ public class LoginActivity extends AppCompatActivity {
     List<TimeDuration> timeDurations = new ArrayList<>();
     BubbleWashDatabase bubbleWashDatabase;
 
+    private SignInClient oneTapClient;
+    private BeginSignInRequest signInRequest;
+
+    private static final int REQ_ONE_TAP = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setupInitialData();
+
+        oneTapClient = Identity.getSignInClient(this);
+        signInRequest = BeginSignInRequest.builder()
+                .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
+                        .setSupported(true)
+                        .build())
+                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                        .setSupported(true)
+                        // Your server's client ID, not your Android client ID.
+                        .setServerClientId("331532376916-6cpvip5n40etoaqv737aq4kn4viuepv2.apps.googleusercontent.com")
+                        // Only show accounts previously used to sign in.
+                        .setFilterByAuthorizedAccounts(false)
+                        .build())
+                // Automatically sign in when exactly one credential is retrieved.
+                .setAutoSelectEnabled(true)
+                .build();
+
         Button btnSignIn = findViewById(R.id.buttonSignIn);
         Button btnRegister = findViewById(R.id.buttonRegister);
 
@@ -159,6 +191,47 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             }
 
+                        }
+                        else{
+                            EditText txtUserName = findViewById(R.id.editTextUserName);
+                            EditText txtPassword = findViewById(R.id.editTextPassword);
+                            txtUserName.setText("");
+                            txtPassword.setText("");
+                            txtUserName.requestFocus();
+                            showMessage("Incorrect username or password. Try again.");
+                        }
+
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    private void validateGoogleSignInUser(String userName){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                User user = bubbleWashDatabase.userDAO().getUserByUserName(userName);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (user!=null) {
+                            Log.d("DB User found : ", user.getUserName());
+
+                            // save current user info
+                            SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
+                            settings = getSharedPreferences("PREFS_BBW", 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("USERNAME", user.getUserName());
+                            //editor.putString("PASSWORD", user.getPassword());
+                            editor.putString("USERID", user.getId());
+                            editor.putBoolean("IS_LOGGED", true);
+                            editor.commit();
+
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                         else{
                             EditText txtUserName = findViewById(R.id.editTextUserName);
@@ -295,6 +368,60 @@ public class LoginActivity extends AppCompatActivity {
             }catch (IOException ex){
                 ex.printStackTrace();
             }
+        }
+    }
+
+    public void googleSignIn(View view){
+        oneTapClient.beginSignIn(signInRequest)
+                .addOnSuccessListener(this, new OnSuccessListener<BeginSignInResult>() {
+                    @Override
+                    public void onSuccess(BeginSignInResult result) {
+                        try {
+                            startIntentSenderForResult(
+                                    result.getPendingIntent().getIntentSender(), REQ_ONE_TAP,
+                                    null, 0, 0, 0);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.e("BBL", "Couldn't start One Tap UI: " + e.getLocalizedMessage());
+                        }
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // No saved credentials found. Launch the One Tap sign-up flow, or
+                        // do nothing and continue presenting the signed-out UI.
+                        Log.d("BBL", "onFailure " + e.getLocalizedMessage());
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_ONE_TAP:
+                try {
+                    SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
+                    String idToken = credential.getGoogleIdToken();
+                    String username = credential.getId();
+                    String password = credential.getPassword();
+                    showMessage("Google User authenticated " + username );
+                    validateGoogleSignInUser(username);
+                    if (idToken !=  null) {
+                        // Got an ID token from Google. Use it to authenticate
+                        // with your backend.
+                        Log.d("BBL", "Got ID token.");
+                    } else if (password != null) {
+                        // Got a saved username and password. Use them to authenticate
+                        // with your backend.
+                        Log.d("BBL", "Got password.");
+                    }
+                } catch (ApiException e) {
+                    showMessage("Google sign in failed " + e.getMessage() );
+                }
+                break;
         }
     }
 }
