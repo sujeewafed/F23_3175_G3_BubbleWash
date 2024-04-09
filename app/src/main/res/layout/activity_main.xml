@@ -146,15 +146,85 @@ tools:context=".activities.MainActivity">
         app:layout_constraintStart_toEndOf="@+id/textViewSelectTimeSlot"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxDryer" />
 
+    <TextView
+        android:id="@+id/textViewPickup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/txtPickup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDryerTimes" />
+
+    <CheckBox
+        android:id="@+id/checkBoxPickup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/textViewPickup"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDryerTimes" />
+
+    <TextView
+        android:id="@+id/textViewPickupTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxPickup"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDryerTimes" />
+
+    <TextView
+        android:id="@+id/textViewDeliver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/txtDeliver"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxPickup" />
+
+    <CheckBox
+        android:id="@+id/checkBoxDeliver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/textViewPickup"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxPickup" />
+
+    <TextView
+        android:id="@+id/textViewDeliverTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxPickup"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxPickup" />
+
+    <EditText
+        android:id="@+id/editTextRemarks"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/txtRemarks"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxDeliver" />
+
     <Button
         android:id="@+id/buttonReserve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="16dp"
         android:text="@string/btnReserve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDryerTimes" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextRemarks" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

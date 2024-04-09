@@ -23,11 +23,83 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="44dp"
         android:text="@string/txtBookingSummarySuccess"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewBookingSummaryTitle" />
+
+    <View
+        android:id="@+id/viewLine1Summary"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/cobalt_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewSummarySuccess" />
+
+    <TextView
+        android:id="@+id/txtViewSummaryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/txtTrackSummaryDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSummarySuccess" />
+
+    <TextView
+        android:id="@+id/txtViewSummaryCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/txtTrackSummaryCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSummarySuccess" />
+
+    <TextView
+        android:id="@+id/txtViewSummaryWasherTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtTrackSummaryWasherTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewSummaryDate" />
+
+    <TextView
+        android:id="@+id/txtViewSummaryDryerTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/txtTrackSummaryDryerTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewSummaryCost" />
+
+    <TextView
+        android:id="@+id/txtViewSummaryPickupTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtTrackSummaryWasherTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewSummaryDryerTime" />
+
+    <TextView
+        android:id="@+id/txtViewSummaryDeliveryTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/txtTrackSummaryDryerTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewSummaryDryerTime" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationBookigSummary"

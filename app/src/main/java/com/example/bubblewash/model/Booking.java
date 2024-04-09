@@ -47,11 +47,17 @@ public class Booking {
     @ColumnInfo(name = "dryTime")
     private int dryTime;
 
-    @ColumnInfo(name = "pickDate")
-    private String pickDate;
+    @ColumnInfo(name = "pick")
+    private boolean pick;
+
+    @ColumnInfo(name = "deliver")
+    private boolean deliver;
 
     @ColumnInfo(name = "pickTime")
     private int pickTime;
+
+    @ColumnInfo(name = "deliverTime")
+    private int deliverTime;
 
     @NonNull
     @ColumnInfo(name = "status")
@@ -67,7 +73,7 @@ public class Booking {
     }
 
     public Booking(@NonNull String userId, @NonNull String date, @NonNull String month, boolean wash, boolean dry, float washCost, float dryCost,
-                   float totalCost, int washTime, int dryTime, String pickDate, int pickTime, BookingStatus status, float rating, String remarks) {
+                   float totalCost, int washTime, int dryTime, boolean pick, int pickTime,boolean deliver, int deliverTime, BookingStatus status, float rating, String remarks) {
         //this.id = id;
         this.userId = userId;
         this.month = month;
@@ -79,8 +85,10 @@ public class Booking {
         this.totalCost = totalCost;
         this.washTime = washTime;
         this.dryTime = dryTime;
-        this.pickDate = pickDate;
+        this.pick = pick;
         this.pickTime = pickTime;
+        this.deliver = deliver;
+        this.deliverTime = deliverTime;
         this.status = status;
         this.rating = rating;
         this.remarks = remarks;
@@ -186,10 +194,6 @@ public class Booking {
         this.dryTime = dryTime;
     }
 
-    public String getPickDate() {
-        return pickDate;
-    }
-
     @NonNull
     public BookingStatus getStatus() {
         return status;
@@ -197,10 +201,6 @@ public class Booking {
 
     public void setStatus(@NonNull BookingStatus status) {
         this.status = status;
-    }
-
-    public void setPickDate(String pickDate) {
-        this.pickDate = pickDate;
     }
 
     public int getPickTime() {
@@ -217,6 +217,30 @@ public class Booking {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public boolean isPick() {
+        return pick;
+    }
+
+    public void setPick(boolean pick) {
+        this.pick = pick;
+    }
+
+    public boolean isDeliver() {
+        return deliver;
+    }
+
+    public void setDeliver(boolean deliver) {
+        this.deliver = deliver;
+    }
+
+    public int getDeliverTime() {
+        return deliverTime;
+    }
+
+    public void setDeliverTime(int deliverTime) {
+        this.deliverTime = deliverTime;
     }
 }
 

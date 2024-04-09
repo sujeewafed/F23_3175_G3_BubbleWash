@@ -65,6 +65,9 @@
     <string name="txtStartWasherTimeSlot">Select a time to start washer</string>
     <string name="txtStartDryerTimeSlot">Select a time to start dryer</string>
     <string name="btnReserve">Reserve</string>
+    <string name="txtPickup">Request pickup</string>
+    <string name="txtDeliver">Request Deliver</string>
+    <string name="txtRemarks">Remarks</string>
 
     //Booking summary Activity
     <string name="txtBookingSummaryTitle">Booking Summary</string>
