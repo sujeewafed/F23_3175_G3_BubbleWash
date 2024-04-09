@@ -32,6 +32,9 @@ public class User {
     @ColumnInfo(name = "address")
     private String address;
 
+    @ColumnInfo(name = "isAdmin")
+    private boolean isAdmin;
+
     public User() {
     }
 
@@ -49,6 +52,21 @@ public class User {
         this.id = id;
         this.userName = userName;
         this.password = password;
+    }
+
+    public User(@NonNull String id, @NonNull String userName, @NonNull String password, boolean isAdmin) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     @NonNull
