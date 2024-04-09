@@ -34,7 +34,7 @@ public interface BookingDao {
     @Query("SELECT * from bookings WHERE userId=:userId AND status IN ('CONFIRM', 'PICK', 'WASH', 'DRY')")
     List<Booking> getCurrentUserBooking(String userId);
 
-    @Query("SELECT * FROM bookings WHERE Status IS NOT 'DELIVER'")
+    @Query("SELECT * FROM bookings WHERE Status IS NOT 'COMPLETE'")
     List<Booking> getCurrentBookingList();
 
     @Query("SELECT * FROM bookings WHERE id=:id")

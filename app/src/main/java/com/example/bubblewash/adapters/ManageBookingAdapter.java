@@ -50,10 +50,10 @@ public class ManageBookingAdapter extends BaseAdapter {
         itemBinding.txtViewItemPickTime.setText(String.valueOf(adapterManageBookingList.get(position).getPickTime()));
         itemBinding.txtViewItemStatus.setText(adapterManageBookingList.get(position).getStatus().toString());
 
-        itemBinding.txtViewItemDate.setGravity(Gravity.CENTER_VERTICAL);
-        itemBinding.txtViewItemMonth.setGravity(Gravity.CENTER_VERTICAL);
-        itemBinding.txtViewItemPickTime.setGravity(Gravity.CENTER_VERTICAL);
-        itemBinding.txtViewItemStatus.setGravity(Gravity.CENTER_VERTICAL);
+        itemBinding.txtViewItemDate.setGravity(Gravity.CENTER);
+        itemBinding.txtViewItemMonth.setGravity(Gravity.CENTER);
+        itemBinding.txtViewItemPickTime.setGravity(Gravity.CENTER);
+        itemBinding.txtViewItemStatus.setGravity(Gravity.CENTER);
 
         return itemBinding.getRoot();
     }

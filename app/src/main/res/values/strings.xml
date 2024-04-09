@@ -89,4 +89,5 @@
 
     //About Us
     <string name="txtAboutUsTitle">About Us</string>
+    <string name="changeBookingStatus">CHANGE STATUS</string>
 </resources>
