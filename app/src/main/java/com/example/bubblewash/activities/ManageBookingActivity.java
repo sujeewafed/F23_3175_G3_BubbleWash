@@ -32,13 +32,12 @@ public class ManageBookingActivity extends AppCompatActivity {
     List<Booking> bookings;
     Booking currentItem;
     BookingStatus selectedStatus;
+    ActivityManageBookingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_manage_booking);
-
-        ActivityManageBookingBinding binding = ActivityManageBookingBinding.inflate(getLayoutInflater());
+        binding = ActivityManageBookingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
@@ -52,25 +51,14 @@ public class ManageBookingActivity extends AppCompatActivity {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, statusList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        setData();
 
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                bookings = bwd.bookingDao().getCurrentBookingList();
-                List<ManageBookingAdminPanel> manageBookingAdminPanelList = new ArrayList<>();
-                //Log.d("BBL", bookings.size());
-                for (int i =0; i <bookings.size();i++){
-                    ManageBookingAdminPanel items = new ManageBookingAdminPanel
-                            (bookings.get(i).getDate(),bookings.get(i).getMonth(),
-                                    bookings.get(i).getPickTime(), bookings.get(i).getStatus());
-
-                    manageBookingAdminPanelList.add(items);
-                }
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.listViewCurrentBooking.setAdapter(new ManageBookingAdapter(manageBookingAdminPanelList));
                         binding.spinnerChangeBookingStatus.setAdapter(adapter);
                     }
                 });
@@ -102,6 +90,7 @@ public class ManageBookingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(getApplicationContext(), "Successfully changed the status !", Toast.LENGTH_SHORT).show();
+                                setData();
                             }
                         });
                     }
@@ -122,6 +111,32 @@ public class ManageBookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signout();
+            }
+        });
+    }
+
+    private void setData(){
+        bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                bookings = bwd.bookingDao().getCurrentBookingList();
+                List<ManageBookingAdminPanel> manageBookingAdminPanelList = new ArrayList<>();
+                for (int i =0; i <bookings.size();i++){
+                    ManageBookingAdminPanel items = new ManageBookingAdminPanel
+                            (bookings.get(i).getDate(),bookings.get(i).getMonth(),
+                                    bookings.get(i).getPickTime(), bookings.get(i).getStatus());
+
+                    manageBookingAdminPanelList.add(items);
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.listViewCurrentBooking.setAdapter(new ManageBookingAdapter(manageBookingAdminPanelList));
+                    }
+                });
             }
         });
     }
