@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 booking.setDry(chkDryer.isChecked());
                 booking.setWashCost(chkWasher.isChecked()? 3 : 0);
                 booking.setDryCost(chkDryer.isChecked()? 2 : 0);
-                float totalCost = (chkWasher.isChecked()? 3 : 1) * (chkDryer.isChecked()? 2 : 1);
+                float totalCost = (chkWasher.isChecked()? 3 : 0) + (chkDryer.isChecked()? 2 : 0) + (chkPick.isChecked()? 3 : 0) + (chkDeliver.isChecked()? 3 : 0);
                 booking.setTotalCost(totalCost == 1 ? 0 : totalCost);
                 booking.setWashTime(chkWasher.isChecked() ? Integer.parseInt(spinnerWasher.getSelectedItem().toString().substring(0,2)) : 0);
                 booking.setDryTime(chkDryer.isChecked() ? Integer.parseInt(spinnerDryer.getSelectedItem().toString().substring(0,2)) : 0);

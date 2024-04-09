@@ -89,4 +89,6 @@
 
     //About Us
     <string name="txtAboutUsTitle">About Us</string>
+    <string name="txtAddress">700 Royal Ave, New Westminster \nBC V3M5Z5 \n(604) 527-5400</string>
+
 </resources>
