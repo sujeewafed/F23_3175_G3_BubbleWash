@@ -192,10 +192,6 @@ public class MainActivity extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             //put data in the bundle
                             bundle.putLong("BOOKINGID", bookingId);
-                            DecimalFormat df = new DecimalFormat("$#.##");
-                            String outputStr = "Booking ID " + bookingId + "\n" +
-                                    "Total cost " + df.format(booking.getTotalCost());
-                            bundle.putString("BOOKINGINFOR", outputStr);
                             //create an intent and put the bundle
                             Intent intent = new Intent(MainActivity.this, BookingSummaryActivity.class);
                             intent.putExtras(bundle);
@@ -239,14 +235,15 @@ public class MainActivity extends AppCompatActivity {
                             adapter.add(String.format("%02d", value.getStartTime() )+ ":00");
                         }
                         spinner.setAdapter(adapter);
-                        //spinner.setDropDownVerticalOffset(40);
 
                         Spinner spinnerDryer = findViewById(R.id.spinnerDryerTimes); // Assuming you have a Spinner in your layout XML with id 'spinner'
                         ArrayAdapter<CharSequence> adapterDryer = new ArrayAdapter<CharSequence>(getApplicationContext(), android.R.layout.simple_spinner_item);
                         adapterDryer.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         for (TimeDuration value : dryerTimes) {
-                            adapterDryer.add(String.format("%02d", value.getStartTime() )+ ":00");
+                            if (value.getStartTime() > times.get(0).getStartTime()) {
+                                adapterDryer.add(String.format("%02d", value.getStartTime()) + ":00");
+                            }
                         }
                         spinnerDryer.setAdapter(adapterDryer);
                     }

@@ -7,7 +7,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.bubblewash.model.Booking;
-import com.example.bubblewash.model.TimeDuration;
 import com.example.bubblewash.model.MonthCostTuple;
 
 import java.util.List;
@@ -32,4 +31,7 @@ public interface BookingDao {
 
     @Query("SELECT * from bookings WHERE userId=:userId AND status IN ('CONFIRM', 'PICK', 'WASH', 'DRY', 'DELIVER')")
     List<Booking> getCurrentUserBookings(String userId);
+
+    @Query("SELECT * FROM bookings WHERE id=:id")
+    Booking getBookingById(int id);
 }
