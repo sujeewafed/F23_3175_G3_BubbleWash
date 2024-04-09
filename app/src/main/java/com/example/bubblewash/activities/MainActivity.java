@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     private String userId;
     BubbleWashDatabase bwd;
 
+    String[] dateValues;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
         String formattedDate = df.format(c);
+
+        dateValues = formattedDate.split("/");
 
         txtSelectedDate.setText(formattedDate);
 
@@ -145,12 +149,10 @@ public class MainActivity extends AppCompatActivity {
                         txtDeliverTime.setText(String.format("%02d", dryerTime + 2 )+ ":00");
                     }else {
                         txtDeliverTime.setText(String.format("%02d", washerTime - 2 )+ ":00");
-
                     }
                 } else {
                     txtDeliverTime.setText("");
                 }
-
             }
         });
     }
@@ -262,13 +264,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openCalendarDialog(){
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 txtSelectedDate.setText(String.valueOf(year) + "/" + String.format("%02d", month) + "/" + String.format("%02d", dayOfMonth) );
                 getTimeDurationLists();
             }
-        }, 2024,4,9);
+        }, Integer.parseInt(dateValues[0]),Integer.parseInt(dateValues[1])-1,Integer.parseInt(dateValues[2]));
 
         datePickerDialog.show();
     }
