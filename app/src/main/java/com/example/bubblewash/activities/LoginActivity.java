@@ -177,6 +177,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(LoginActivity.this, ManageBookingActivity.class));
                             }else {
                                 Log.d("DB User found : ", user.getUserName());
+                                Log.d("BUBBLEWASH", "DB User found image : " + user.getImagePath());
 
                                 // save current user info
                                 SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
@@ -185,6 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("USERNAME", user.getUserName());
                                 editor.putString("PASSWORD", user.getPassword());
                                 editor.putString("USERID", user.getId());
+                                editor.putString("USERIMAGE", user.getImagePath());
                                 editor.putBoolean("IS_LOGGED", true);
                                 editor.commit();
 
