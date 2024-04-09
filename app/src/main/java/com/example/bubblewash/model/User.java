@@ -35,10 +35,13 @@ public class User {
     @ColumnInfo(name = "isAdmin")
     private boolean isAdmin;
 
+    @ColumnInfo(name = "imagePath")
+    private String imagePath;
+
     public User() {
     }
 
-    public User(@NonNull String id, @NonNull String userName, @NonNull String password, String firstName, String lastName, String mobileNumber, String address) {
+    public User(@NonNull String id, @NonNull String userName, @NonNull String password, String firstName, String lastName, String mobileNumber, String address, String imagePath) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -46,6 +49,7 @@ public class User {
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
         this.address = address;
+        this.imagePath = imagePath;
     }
 
     public User(@NonNull String id, @NonNull String userName, @NonNull String password){
@@ -59,14 +63,6 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.isAdmin = isAdmin;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
     }
 
     @NonNull
@@ -126,5 +122,21 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

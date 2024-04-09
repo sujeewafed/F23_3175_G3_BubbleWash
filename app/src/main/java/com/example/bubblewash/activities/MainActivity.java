@@ -7,6 +7,7 @@ import androidx.room.Room;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageView imageViewUser;
     private ImageView imgViewShowCalendar;
     private TextView txtSelectedDate;
     private TextView txtViewWelcome;
@@ -256,11 +258,18 @@ public class MainActivity extends AppCompatActivity {
 
     private  void displayUserName(){
         String userName = "";
+        String userImage = "";
 
         SharedPreferences settings = getSharedPreferences("PREFS_BBW", 0);
         userName = settings.getString("USERNAME", "");
         userId = settings.getString("USERID", "");
+        userImage = settings.getString("USERIMAGE", "");
         txtViewWelcome.setText("Hello, " + userName);
+        Log.d("BUBBLEWASH", "image : " + userImage);
+        if(!userImage.equals("")){
+            imageViewUser = findViewById(R.id.imageViewUser);
+            imageViewUser.setImageURI(Uri.parse(userImage));
+        }
     }
 
     private void openCalendarDialog(){
