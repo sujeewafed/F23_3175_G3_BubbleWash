@@ -6,28 +6,28 @@
     <TextView
         android:id="@+id/txtViewItemDate"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/txtViewItemMonth"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/txtViewItemPickTime"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/txtViewItemStatus"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_weight="1"
         android:text="TextView" />
 </LinearLayout>

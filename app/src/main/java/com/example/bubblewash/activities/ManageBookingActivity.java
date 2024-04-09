@@ -8,7 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.bubblewash.R;
 import com.example.bubblewash.adapters.ManageBookingAdapter;
@@ -16,6 +19,7 @@ import com.example.bubblewash.databases.BubbleWashDatabase;
 import com.example.bubblewash.databinding.ActivityManageBookingBinding;
 import com.example.bubblewash.model.Booking;
 import com.example.bubblewash.model.ManageBookingAdminPanel;
+import com.example.bubblewash.utils.BookingStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,9 @@ import java.util.concurrent.Executors;
 public class ManageBookingActivity extends AppCompatActivity {
 
     BubbleWashDatabase bwd;
+    List<Booking> bookings;
+    Booking currentItem;
+    BookingStatus selectedStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +44,19 @@ public class ManageBookingActivity extends AppCompatActivity {
         bwd = Room.databaseBuilder(getApplicationContext(), BubbleWashDatabase.class, "bubblewash.db").build();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+        // set spinner data
+        BookingStatus[] statuses = BookingStatus.values();
+        String[] statusList = new String[statuses.length];
+        for (int i = 0; i < statuses.length; i++) {
+            statusList[i] = statuses[i].name();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, statusList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                List<Booking> bookings = bwd.bookingDao().getCurrentBookingList();
+                bookings = bwd.bookingDao().getCurrentBookingList();
                 List<ManageBookingAdminPanel> manageBookingAdminPanelList = new ArrayList<>();
                 //Log.d("BBL", bookings.size());
                 for (int i =0; i <bookings.size();i++){
@@ -55,8 +71,48 @@ public class ManageBookingActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         binding.listViewCurrentBooking.setAdapter(new ManageBookingAdapter(manageBookingAdminPanelList));
+                        binding.spinnerChangeBookingStatus.setAdapter(adapter);
                     }
                 });
+            }
+        });
+
+        binding.spinnerChangeBookingStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedStatus = BookingStatus.valueOf(parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        binding.btnChangeBookingStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentItem.setStatus(selectedStatus);
+                ExecutorService executorService = Executors.newSingleThreadExecutor();
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        bwd.bookingDao().insertOneBooking(currentItem);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "Successfully changed the status !", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        binding.listViewCurrentBooking.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currentItem = bookings.get(position);
             }
         });
 

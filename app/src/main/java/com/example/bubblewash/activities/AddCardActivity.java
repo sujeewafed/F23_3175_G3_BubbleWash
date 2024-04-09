@@ -3,6 +3,7 @@ package com.example.bubblewash.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class AddCardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
+        setBackNavigation();
 
         EditText txtCardNumber = findViewById(R.id.editTxtCrdNumber);
         EditText txtExpDate = findViewById(R.id.ediTxtExpDate);
@@ -69,9 +71,16 @@ public class AddCardActivity extends AppCompatActivity {
 
 
 
+    }
 
 
-
-
+    private void setBackNavigation(){
+        Button btnBack = findViewById(R.id.btnBackFromCards);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MoreActivity.class));
+            }
+        });
     }
 }

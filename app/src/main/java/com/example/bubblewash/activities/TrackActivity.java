@@ -182,6 +182,12 @@ public class TrackActivity extends AppCompatActivity {
     }
 
     private void setProgressData(){
+        binding.chkBxTrackConfirmOrder.setChecked(false);
+        binding.chkBxTrackPickOrder.setChecked(false);
+        binding.chkBoxTrackWashOrder.setChecked(false);
+        binding.chkBoxTrackDryOrder.setChecked(false);
+        binding.chkBoxTrackDeliverOrder.setChecked(false);
+
         binding.chkBxTrackConfirmOrder.setEnabled(false);
         binding.chkBxTrackPickOrder.setEnabled(false);
         binding.chkBoxTrackWashOrder.setEnabled(false);
