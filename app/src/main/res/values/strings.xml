@@ -93,4 +93,5 @@
 
     //Manage bookings
     <string name="changeBookingStatus">CHANGE STATUS</string>
+    <string name="statusTitle">CHANGE STATUS</string>
 </resources>
