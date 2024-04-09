@@ -32,6 +32,7 @@ import com.example.bubblewash.model.User;
 import com.example.bubblewash.utils.BookingStatus;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -50,11 +51,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtViewWelcome;
     private CheckBox chkWasher;
     private CheckBox chkDryer;
-
+    private CheckBox chkPick;
+    private CheckBox chkDeliver;
     private Spinner spinnerWasher;
-
     private Spinner spinnerDryer;
-
+    private TextView txtPickDate;
+    private TextView txtPickTime;
+    private TextView txtDeliverDate;
+    private TextView txtDeliverTime;
+    private EditText txtRemarks;
     private String userId;
     BubbleWashDatabase bwd;
 
@@ -70,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         txtViewWelcome = findViewById(R.id.textViewWelcome);
         chkWasher = findViewById(R.id.checkBoxWasher);
         chkDryer = findViewById(R.id.checkBoxDryer);
+        chkPick = findViewById(R.id.checkBoxPickup);
+        chkDeliver = findViewById(R.id.checkBoxDeliver);
         Button btnReserve = findViewById(R.id.buttonReserve);
 
         spinnerWasher = findViewById(R.id.spinnerWasherTimes);
@@ -77,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
         TextView txtWasher =  findViewById(R.id.textViewSelectTimeSlotDryer);
         spinnerDryer.setVisibility(View.GONE);
         txtWasher.setVisibility(View.GONE);
-
+        txtPickTime =  findViewById(R.id.textViewPickupTime);
+        txtDeliverTime =  findViewById(R.id.textViewDeliverTime);
+        txtRemarks = findViewById(R.id.editTextRemarks);
         displayUserName();
         Date c = Calendar.getInstance().getTime();
 
@@ -111,6 +120,39 @@ public class MainActivity extends AppCompatActivity {
                 createBooking();
             }
         });
+
+        chkPick.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //int visibility = isChecked ? View.VISIBLE : View.GONE;
+                if (isChecked) {
+                    int washerTime = chkWasher.isChecked() ? Integer.parseInt(spinnerWasher.getSelectedItem().toString().substring(0, 2)) : 0;
+                    txtPickTime.setText(String.format("%02d", washerTime - 2 )+ ":00");
+                } else {
+                    txtPickTime.setText("");
+                }
+            }
+        });
+
+        chkDeliver.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    int washerTime = chkWasher.isChecked() ? Integer.parseInt(spinnerWasher.getSelectedItem().toString().substring(0, 2)) : 0;
+                    int dryerTime = chkDryer.isChecked() ? Integer.parseInt(spinnerDryer.getSelectedItem().toString().substring(0, 2)) : 0;
+
+                    if (chkDryer.isChecked()){
+                        txtDeliverTime.setText(String.format("%02d", dryerTime + 2 )+ ":00");
+                    }else {
+                        txtDeliverTime.setText(String.format("%02d", washerTime - 2 )+ ":00");
+
+                    }
+                } else {
+                    txtDeliverTime.setText("");
+                }
+
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -132,12 +174,14 @@ public class MainActivity extends AppCompatActivity {
                 booking.setDryCost(chkDryer.isChecked()? 2 : 0);
                 float totalCost = (chkWasher.isChecked()? 3 : 1) * (chkDryer.isChecked()? 2 : 1);
                 booking.setTotalCost(totalCost == 1 ? 0 : totalCost);
-                booking.setWashTime(Integer.parseInt(spinnerWasher.getSelectedItem().toString().substring(0,2)));
-                booking.setDryTime(Integer.parseInt(spinnerDryer.getSelectedItem().toString().substring(0,2)));
-                //booking.pickDate = pickDate;
-                //booking.pickTime = pickTime;
+                booking.setWashTime(chkWasher.isChecked() ? Integer.parseInt(spinnerWasher.getSelectedItem().toString().substring(0,2)) : 0);
+                booking.setDryTime(chkDryer.isChecked() ? Integer.parseInt(spinnerDryer.getSelectedItem().toString().substring(0,2)) : 0);
+                booking.setPick(chkPick.isChecked());
+                booking.setDeliver(chkDeliver.isChecked());
+                booking.setPickTime(chkPick.isChecked() ? Integer.parseInt(txtPickTime.getText().toString().substring(0,2)) : 0);
+                booking.setDeliverTime(chkDeliver.isChecked() ? Integer.parseInt(txtDeliverTime.getText().toString().substring(0,2)) : 0);
                 booking.setStatus(BookingStatus.CONFIRM);
-                booking.setRemarks("");
+                booking.setRemarks(txtRemarks.getText().toString());
                 try{
                     long bookingId = bwd.bookingDao().insertOneBooking(booking);
                     getTimeDurationLists();
@@ -148,8 +192,10 @@ public class MainActivity extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             //put data in the bundle
                             bundle.putLong("BOOKINGID", bookingId);
-                            //bundle.putString("TYPE", spinnerConcertTypes.getSelectedItem().toString());
-                            //bundle.putDouble("COST", totalCost);
+                            DecimalFormat df = new DecimalFormat("$#.##");
+                            String outputStr = "Booking ID " + bookingId + "\n" +
+                                    "Total cost " + df.format(booking.getTotalCost());
+                            bundle.putString("BOOKINGINFOR", outputStr);
                             //create an intent and put the bundle
                             Intent intent = new Intent(MainActivity.this, BookingSummaryActivity.class);
                             intent.putExtras(bundle);
@@ -222,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                txtSelectedDate.setText(String.valueOf(year) + "/" + String.format("%02d", month+1) + "/" + String.format("%02d", dayOfMonth) );
+                txtSelectedDate.setText(String.valueOf(year) + "/" + String.format("%02d", month) + "/" + String.format("%02d", dayOfMonth) );
                 getTimeDurationLists();
             }
         }, 2024,4,9);

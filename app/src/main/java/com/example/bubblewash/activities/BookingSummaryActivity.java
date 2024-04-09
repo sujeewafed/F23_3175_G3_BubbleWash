@@ -28,10 +28,9 @@ public class BookingSummaryActivity extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             double cost = 0; //bundle.getDouble("BOOKINGID",0);
             bookingId = getIntent().getExtras().getLong("BOOKINGID",0);
-            //String concertType = bundle.getString("TYPE", "NOTHING");
-            DecimalFormat df = new DecimalFormat("$#.##");
-            String outputStr = "Booking ID " + bookingId + "\n" +
-                    "Total cost " + df.format(cost);
+            //DecimalFormat df = new DecimalFormat("$#.##");
+            String outputStr = getIntent().getExtras().getString("BOOKINGINFOR","");
+
             showMessage(outputStr);
             TextView txtViewResults = findViewById(R.id.textViewSummarySuccess);
             txtViewResults.setText(outputStr);

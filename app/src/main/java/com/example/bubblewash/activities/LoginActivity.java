@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                         .setSupported(true)
                         // Your server's client ID, not your Android client ID.
-                        .setServerClientId("331532376916-6cpvip5n40etoaqv737aq4kn4viuepv2.apps.googleusercontent.com")
+                        .setServerClientId("331532376916-m9b48d0245r8sbjf1r79ddq2483f3nsa.apps.googleusercontent.com")
                         // Only show accounts previously used to sign in.
                         .setFilterByAuthorizedAccounts(false)
                         .build())
@@ -303,16 +303,20 @@ public class LoginActivity extends AppCompatActivity {
                         Integer.parseInt(eachBookingFields[9]),
                         // DryTime - 10
                         Integer.parseInt(eachBookingFields[10]),
-                        // PickDate - 2024/01/10
-                        eachBookingFields[11],
-                        // PickTime - 8
+                        // Pick - true
+                        Boolean.parseBoolean(eachBookingFields[11]),
+                        // pick time - 10
                         Integer.parseInt(eachBookingFields[12]),
+                        // Deliver - true
+                        Boolean.parseBoolean(eachBookingFields[13]),
+                        // deliver time - 10
+                        Integer.parseInt(eachBookingFields[14]),
                         // Status - CONFIRM
-                        BookingStatus.valueOf(eachBookingFields[13]),
+                        BookingStatus.valueOf(eachBookingFields[15]),
                         // Rating - 0
-                        Float.parseFloat(eachBookingFields[14]),
+                        Float.parseFloat(eachBookingFields[16]),
                         // Remarks - test
-                        eachBookingFields[15]
+                        eachBookingFields[17]
                 );
                 bookings.add(eachBooking);
             }
@@ -405,6 +409,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } catch (ApiException e) {
                     showMessage("Google sign in failed " + e.getMessage() );
+                    //showMessage("Google sign in failed " + e.getMessage() );
                 }
                 break;
         }
