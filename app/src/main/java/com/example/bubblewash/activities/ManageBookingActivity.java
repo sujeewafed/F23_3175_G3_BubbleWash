@@ -6,6 +6,7 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,11 +42,11 @@ public class ManageBookingActivity extends AppCompatActivity {
             public void run() {
                 List<Booking> bookings = bwd.bookingDao().getCurrentBookingList();
                 List<ManageBookingAdminPanel> manageBookingAdminPanelList = new ArrayList<>();
-
+                //Log.d("BBL", bookings.size());
                 for (int i =0; i <bookings.size();i++){
                     ManageBookingAdminPanel items = new ManageBookingAdminPanel
-                            (bookings.get(i).getDate(),bookings.get(i).getMonth()
-                                    ,bookings.get(i).getPickDate(),bookings.get(i).getPickTime(), bookings.get(i).getStatus());
+                            (bookings.get(i).getDate(),bookings.get(i).getMonth(),
+                                    bookings.get(i).getPickTime(), bookings.get(i).getStatus());
 
                     manageBookingAdminPanelList.add(items);
                 }

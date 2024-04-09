@@ -6,14 +6,13 @@ public class ManageBookingAdminPanel {
 
     private String date;
     private String month;
-    private String pickDate;
+
     private int pickTime;
     private BookingStatus status;
 
-    public ManageBookingAdminPanel(String date, String month, String pickDate, int pickTime, BookingStatus status) {
+    public ManageBookingAdminPanel(String date, String month, int pickTime, BookingStatus status) {
         this.date = date;
         this.month = month;
-        this.pickDate = pickDate;
         this.pickTime = pickTime;
         this.status = status;
     }
@@ -34,13 +33,6 @@ public class ManageBookingAdminPanel {
         this.month = month;
     }
 
-    public String getPickDate() {
-        return pickDate;
-    }
-
-    public void setPickDate(String pickDate) {
-        this.pickDate = pickDate;
-    }
 
     public int getPickTime() {
         return pickTime;
